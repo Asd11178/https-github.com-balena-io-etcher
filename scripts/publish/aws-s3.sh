@@ -27,6 +27,10 @@ function check_dep() {
   fi
 }
 
+function get_package_setting() {
+  node -e "console.log(require('./package.json').$1)"
+}
+
 check_dep aws
 
 if [ "$#" -ne 1 ]; then
@@ -34,11 +38,11 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
-ETCHER_VERSION=`node -e "console.log(require('./package.json').version)"`
+APPLICATION_VERSION=$(get_package_setting "version")
 S3_BUCKET="resin-production-downloads"
 
 aws s3api put-object \
-  --bucket $S3_BUCKET \
+  --bucket "$S3_BUCKET" \
   --acl public-read \
-  --key etcher/$ETCHER_VERSION/`basename $1` \
-  --body $1
+  --key "etcher/$APPLICATION_VERSION/$(basename "$1")" \
+  --body "$1"

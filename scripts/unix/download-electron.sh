@@ -48,10 +48,10 @@ ARGV_OUTPUT=""
 
 while getopts ":r:v:s:o:" option; do
   case $option in
-    r) ARGV_ARCHITECTURE=$OPTARG ;;
-    v) ARGV_ELECTRON_VERSION=$OPTARG ;;
-    s) ARGV_OPERATING_SYSTEM=$OPTARG ;;
-    o) ARGV_OUTPUT=$OPTARG ;;
+    r) ARGV_ARCHITECTURE="$OPTARG" ;;
+    v) ARGV_ELECTRON_VERSION="$OPTARG" ;;
+    s) ARGV_OPERATING_SYSTEM="$OPTARG" ;;
+    o) ARGV_OUTPUT="$OPTARG" ;;
     *) usage ;;
   esac
 done

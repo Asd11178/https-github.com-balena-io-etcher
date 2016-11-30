@@ -33,6 +33,7 @@ if [[ "$OS" != "Darwin" ]]; then
   echo "This script is only meant to be run in OS X" 1>&2
   exit 1
 fi
+APPLICATION_OS=darwin
 
 function usage() {
   echo "Usage: $0"

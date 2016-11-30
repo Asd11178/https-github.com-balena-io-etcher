@@ -31,6 +31,7 @@ if [[ "$OS" != "Darwin" ]]; then
   echo "This script is only meant to be run in OS X" 1>&2
   exit 1
 fi
+APPLICATION_OS=darwin
 
 check_dep hdiutil
 check_dep xattr
@@ -160,7 +161,7 @@ sync
 afsctool -ci -9 "$VOLUME_APPLICATION"
 
 # TODO: this should be decoupled from this script
-./scripts/darwin/sign.sh -a "$VOLUME_APPLICATION" -i "$ARGV_IDENTITY"
+./scripts/$APPLICATION_OS/sign.sh -a "$VOLUME_APPLICATION" -i "$ARGV_IDENTITY"
 
 # Unmount temporary DMG image.
 hdiutil detach "$VOLUME_DIRECTORY"

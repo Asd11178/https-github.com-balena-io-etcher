@@ -51,9 +51,9 @@ ARGV_PRODUCTION=false
 
 while getopts ":r:v:t:fp" option; do
   case $option in
-    r) ARGV_ARCHITECTURE=$OPTARG ;;
-    v) ARGV_TARGET_VERSION=$OPTARG ;;
-    t) ARGV_TARGET_PLATFORM=$OPTARG ;;
+    r) ARGV_ARCHITECTURE="$OPTARG" ;;
+    v) ARGV_TARGET_VERSION="$OPTARG" ;;
+    t) ARGV_TARGET_PLATFORM="$OPTARG" ;;
     f) ARGV_FORCE=true ;;
     p) ARGV_PRODUCTION=true ;;
     *) usage ;;
@@ -87,18 +87,23 @@ fi
 rm -rf node_modules
 
 NPM_INSTALL_OPTS="--build-from-source"
+BOWER_INSTALL_OPTS="--allow-root"
 
 if [ "$ARGV_FORCE" == "true" ]; then
   NPM_INSTALL_OPTS="$NPM_INSTALL_OPTS --force"
+  BOWER_INSTALL_OPTS="$BOWER_INSTALL_OPTS --force"
 fi
 
 if [ "$ARGV_PRODUCTION" == "true" ]; then
   NPM_INSTALL_OPTS="$NPM_INSTALL_OPTS --production"
+  BOWER_INSTALL_OPTS="$BOWER_INSTALL_OPTS --production"
 fi
 
+# NPM_INSTALL_OPTS here is *deliberately* non-quoted
 npm install $NPM_INSTALL_OPTS
 
 if [ "$ARGV_TARGET_PLATFORM" == "electron" ]; then
   rm -rf bower_components
-  bower install --production --allow-root
+  # BOWER_INSTALL_OPTS here is *deliberately* non-quoted
+  bower install $BOWER_INSTALL_OPTS
 fi

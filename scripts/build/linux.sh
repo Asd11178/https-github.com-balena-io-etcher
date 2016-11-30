@@ -28,11 +28,16 @@ function check_dep() {
   fi
 }
 
-OS=`uname`
+function get_package_setting() {
+  node -e "console.log(require('./package.json').$1)"
+}
+
+OS=$(uname)
 if [[ "$OS" != "Linux" ]]; then
   echo "This script is only meant to be run in GNU/Linux" 1>&2
   exit 1
 fi
+APPLICATION_OS=linux
 
 if [ "$#" -ne 2 ]; then
   echo "Usage: $0 <command> <arch>" 1>&2
@@ -48,11 +53,17 @@ then
   exit 1
 fi
 
-ELECTRON_VERSION=`node -e "console.log(require('./package.json').devDependencies['electron-prebuilt'])"`
-NODE_VERSION="6.2.2"
-APPLICATION_NAME=`node -e "console.log(require('./package.json').displayName)"`
-APPLICATION_DESCRIPTION=`node -e "console.log(require('./package.json').description)"`
-APPLICATION_VERSION=`node -e "console.log(require('./package.json').version)"`
+ELECTRON_VERSION=$(get_package_setting "devDependencies['electron-prebuilt']")
+NODE_VERSION=6.2.2
+APPLICATION_NAME=$(get_package_setting "displayName")
+APPLICATION_COPYRIGHT=$(get_package_setting "copyright")
+APPLICATION_DESCRIPTION=$(get_package_setting "description")
+APPLICATION_VERSION=$(get_package_setting "version")
+GUI_APPLICATION_NAME=$APPLICATION_NAME-$APPLICATION_OS-$ARCH
+CLI_APPLICATION_NAME=etcher-cli-$APPLICATION_OS-$ARCH
+PACKAGE_NAME=$APPLICATION_NAME-$APPLICATION_VERSION-$APPLICATION_OS-$ARCH
+OUTPUT_BUILD_DIRECTORY=etcher-release
+OUTPUT_DIRECTORY=$OUTPUT_BUILD_DIRECTORY/installers
 
 if [ "$COMMAND" == "develop-electron" ]; then
   ./scripts/unix/dependencies.sh \
@@ -80,8 +91,8 @@ if [ "$COMMAND" == "installer-cli" ]; then
     -n etcher \
     -e bin/etcher \
     -r "$ARCH" \
-    -s linux \
-    -o etcher-release/etcher-cli-linux-$ARCH
+    -s "$APPLICATION_OS" \
+    -o "$OUTPUT_BUILD_DIRECTORY/$CLI_APPLICATION_NAME"
   exit 0
 fi
 
@@ -91,20 +102,20 @@ if [ "$COMMAND" == "installer-debian" ]; then
     -v "$ELECTRON_VERSION" \
     -t electron
 
-  ./scripts/linux/package.sh \
+  ./scripts/$APPLICATION_OS/package.sh \
     -n "$APPLICATION_NAME" \
     -r "$ARCH" \
     -v "$APPLICATION_VERSION" \
     -l LICENSE \
     -f "package.json,lib,node_modules,bower_components,build,assets" \
     -e "$ELECTRON_VERSION" \
-    -o etcher-release/$APPLICATION_NAME-linux-$ARCH
+    -o "$OUTPUT_BUILD_DIRECTORY/$GUI_APPLICATION_NAME"
 
-  ./scripts/linux/installer-deb.sh \
-    -p etcher-release/$APPLICATION_NAME-linux-$ARCH \
+  ./scripts/$APPLICATION_OS/installer-deb.sh \
+    -p "$OUTPUT_BUILD_DIRECTORY/GUI_APPLICATION_NAME" \
     -r "$ARCH" \
     -c scripts/build/debian/config.json \
-    -o etcher-release/installers
+    -o "$OUTPUT_DIRECTORY"
 
   exit 0
 fi
@@ -117,29 +128,29 @@ if [ "$COMMAND" == "installer-appimage" ]; then
     -v "$ELECTRON_VERSION" \
     -t electron
 
-  ./scripts/linux/package.sh \
+  ./scripts/$APPLICATION_OS/package.sh \
     -n "$APPLICATION_NAME" \
     -r "$ARCH" \
     -v "$APPLICATION_VERSION" \
     -l LICENSE \
     -f "package.json,lib,node_modules,bower_components,build,assets" \
     -e "$ELECTRON_VERSION" \
-    -o etcher-release/$APPLICATION_NAME-linux-$ARCH
+    -o "$OUTPUT_BUILD_DIRECTORY/$GUI_APPLICATION_NAME"
 
-  ./scripts/linux/installer-appimage.sh \
+  ./scripts/$APPLICATION_OS/installer-appimage.sh \
     -n "$APPLICATION_NAME" \
     -d "$APPLICATION_DESCRIPTION" \
-    -p etcher-release/$APPLICATION_NAME-linux-$ARCH \
-    -r $ARCH \
+    -p "$OUTPUT_BUILD_DIRECTORY/$GUI_APPLICATION_NAME" \
+    -r "$ARCH" \
     -b etcher \
     -i assets/icon.png \
-    -o etcher-release/$APPLICATION_NAME-linux-$ARCH.AppImage
+    -o "$OUTPUT_BUILD_DIRECTORY/$GUI_APPLICATION_NAME.AppImage"
 
-  pushd etcher-release
-  zip $APPLICATION_NAME-$APPLICATION_VERSION-linux-$ARCH.zip $APPLICATION_NAME-linux-$ARCH.AppImage
-  mkdir -p installers
-  mv $APPLICATION_NAME-$APPLICATION_VERSION-linux-$ARCH.zip installers
+  pushd "$OUTPUT_BUILD_DIRECTORY"
+  zip "$PACKAGE_NAME.zip" "$GUI_APPLICATION_NAME.AppImage"
   popd
+  mkdir -p "$OUTPUT_DIRECTORY"
+  mv "$OUTPUT_BUILD_DIRECTORY/$PACKAGE_NAME.zip" "$OUTPUT_DIRECTORY"
 
   exit 0
 fi

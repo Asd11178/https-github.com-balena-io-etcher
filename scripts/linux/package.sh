@@ -31,6 +31,7 @@ if [[ "$OS" != "Linux" ]]; then
   echo "This script is only meant to be run in GNU/Linux" 1>&2
   exit 1
 fi
+APPLICATION_OS=linux
 
 function usage() {
   echo "Usage: $0"
@@ -82,14 +83,15 @@ fi
 ./scripts/unix/download-electron.sh \
   -r "$ARGV_ARCHITECTURE" \
   -v "$ARGV_ELECTRON_VERSION" \
-  -s linux \
+  -s "$APPLICATION_OS" \
   -o "$ARGV_OUTPUT"
 
-mv $ARGV_OUTPUT/electron $ARGV_OUTPUT/$(echo "$ARGV_APPLICATION_NAME" | tr '[:upper:]' '[:lower:]')
-cp $ARGV_LICENSE $ARGV_OUTPUT/LICENSE
-echo "$ARGV_VERSION" > $ARGV_OUTPUT/version
-rm $ARGV_OUTPUT/resources/default_app.asar
+ASAR_DIRECTORY=$ARGV_OUTPUT/resources
+mv "$ARGV_OUTPUT/electron" "$ARGV_OUTPUT/$(echo "$ARGV_APPLICATION_NAME" | tr '[:upper:]' '[:lower:]')"
+cp "$ARGV_LICENSE" "$ARGV_OUTPUT/LICENSE"
+echo "$ARGV_VERSION" > "$ARGV_OUTPUT/version"
+rm "$ASAR_DIRECTORY/default_app.asar"
 
 ./scripts/unix/create-asar.sh \
   -f "$ARGV_FILES" \
-  -o "$ARGV_OUTPUT/resources/app.asar"
+  -o "$ASAR_DIRECTORY/app.asar"

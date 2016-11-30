@@ -31,6 +31,7 @@ if [[ "$OS" != "Linux" ]]; then
   echo "This script is only meant to be run in GNU/Linux" 1>&2
   exit 1
 fi
+APPLICATION_OS=linux
 
 check_dep electron-installer-debian
 

@@ -149,14 +149,16 @@ for /f %%i in (' "node -e ""console.log(require('./package.json').copyright)""" 
 )
 
 for /f %%i in (' "node -e ""console.log(require('./package.json').version)""" ') do (
-  set etcher_version=%%i
+  set application_version=%%i
 )
 
 for /f %%i in (' "node -v" ') do (
   set node_version=%%i
 )
 
-set package_name=Etcher-%etcher_version%-win32-%arch%
+set application_os=win32
+set gui_application_name=%application_name%-%application_os%-%arch%
+set package_name=%application_name%-%application_version%-%application_os%-%arch%
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 :: Configure NPM to build native addons for Electron correctly
@@ -195,14 +197,14 @@ for /f %%i in (' "node .\scripts\packageignore.js" ') do (
 )
 
 call %electron_packager% . %application_name%^
- --platform=win32^
+ --platform=%application_os%^
  --arch=%electron_arch%^
  --version=%electron_version%^
  --ignore=%electron_ignore%^
  --icon="assets/icon.ico"^
  --app-copyright=%application_copyright%^
- --app-version=%etcher_version%^
- --build-version=%etcher_version%^
+ --app-version=%application_version%^
+ --build-version=%application_version%^
  --version-string.CompanyName=%company_name%^
  --version-string.FileDescription=%application_name%^
  --version-string.OriginalFilename=%package_name%^
@@ -214,10 +216,10 @@ call %electron_packager% . %application_name%^
 set package_output=%output_build_directory%\%package_name%
 
 if not "%arch%"=="%electron_arch%" (
-    move %output_build_directory%\Etcher-win32-%electron_arch% %output_build_directory%\Etcher-win32-%arch%
+    move %output_build_directory%\%application_name%-%application_os%-%electron_arch% %output_build_directory%\%gui_application_name%
 )
 
-move %output_build_directory%\Etcher-win32-%arch% %package_output%
+move %output_build_directory%\%gui_application_name% %package_output%
 
 :: Omit *.dll and *.node files from the asar package, otherwise
 :: `process.dlopen` and `module.require` can't load them correctly.
@@ -227,11 +229,11 @@ call rimraf %package_output%\resources\app
 
 signtool sign^
  /t %timestamp_server_url%^
- /d "%application_name% - %etcher_version%"^
+ /d "%application_name% - %application_version%"^
  /f %certificate_file%^
  /p %certificate_pass%^
- %package_output%\Etcher.exe
-signtool verify /pa /v %package_output%\Etcher.exe
+ %package_output%\%application_name%.exe
+signtool verify /pa /v %package_output%\%application_name%.exe
 
 upx -9 %package_output%\*.dll
 
@@ -243,7 +245,7 @@ cd %package_output%^
 :: Generate installer
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-set installer_tmp_output=%output_build_directory%\win32-%arch%-tmp-installer
+set installer_tmp_output=%output_build_directory%\%application_os%-%arch%-tmp-installer
 set installer_output=%output_directory%\%package_name%.exe
 
 call %electron_builder% %package_output%^
@@ -256,7 +258,7 @@ rd /s /q "%installer_tmp_output%"
 
 signtool sign^
  /t %timestamp_server_url%^
- /d "%application_name% - %etcher_version%"^
+ /d "%application_name% - %application_version%"^
  /f %certificate_file%^
  /p %certificate_pass%^
  %installer_output%

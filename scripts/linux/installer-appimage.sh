@@ -31,6 +31,7 @@ if [[ "$OS" != "Linux" ]]; then
   echo "This script is only meant to be run in GNU/Linux" 1>&2
   exit 1
 fi
+APPLICATION_OS=linux
 
 check_dep upx
 check_dep wget
@@ -148,7 +149,7 @@ rm -f "$ARGV_OUTPUT"
 APPIMAGEASSISTANT_PATH=/tmp/AppImageAssistant.AppImage
 download_executable \
   "$APPIMAGES_GITHUB_RELEASE_BASE_URL/AppImageAssistant_$APPIMAGES_TAG-$APPIMAGES_ARCHITECTURE.AppImage" \
-  $APPIMAGEASSISTANT_PATH
+  "$APPIMAGEASSISTANT_PATH"
 
-$APPIMAGEASSISTANT_PATH "$APPDIR_PATH" "$ARGV_OUTPUT"
+"$APPIMAGEASSISTANT_PATH" "$APPDIR_PATH" "$ARGV_OUTPUT"
 rm -rf "$APPDIR_PATH"

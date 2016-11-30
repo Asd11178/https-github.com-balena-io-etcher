@@ -31,6 +31,7 @@ if [[ "$OS" != "Darwin" ]]; then
   echo "This script is only meant to be run in OS X" 1>&2
   exit 1
 fi
+APPLICATION_OS=darwin
 
 check_dep /usr/libexec/PlistBuddy
 
@@ -96,12 +97,13 @@ fi
 ./scripts/unix/download-electron.sh \
   -r "$ARGV_ARCHITECTURE" \
   -v "$ARGV_ELECTRON_VERSION" \
-  -s darwin \
+  -s "$APPLICATION_OS" \
   -o "$ARGV_OUTPUT"
 
 APPLICATION_OUTPUT="$ARGV_OUTPUT/$ARGV_APPLICATION_NAME.app"
+ASAR_DIRECTORY=$APPLICATION_OUTPUT/Contents/Resources
 mv "$ARGV_OUTPUT/Electron.app" "$APPLICATION_OUTPUT"
-rm "$APPLICATION_OUTPUT/Contents/Resources/default_app.asar"
+rm "$ASAR_DIRECTORY/default_app.asar"
 
 # Don't include these for now
 rm -f "$ARGV_OUTPUT"/LICENSE*
@@ -155,4 +157,4 @@ done
 
 ./scripts/unix/create-asar.sh \
   -f "$ARGV_FILES" \
-  -o "$APPLICATION_OUTPUT/Contents/Resources/app.asar"
+  -o "$ASAR_DIRECTORY/app.asar"

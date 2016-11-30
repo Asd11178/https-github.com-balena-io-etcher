@@ -43,8 +43,8 @@ ARGV_OUTPUT=""
 
 while getopts ":f:o:" option; do
   case $option in
-    f) ARGV_FILES=$OPTARG ;;
-    o) ARGV_OUTPUT=$OPTARG ;;
+    f) ARGV_FILES="$OPTARG" ;;
+    o) ARGV_OUTPUT="$OPTARG" ;;
     *) usage ;;
   esac
 done
