@@ -1,0 +1,26 @@
+<div
+  ng-controller="ImageSelectionController as image">
+  <div class="image-search-wrapper">
+  </div>
+  <div class="image-header-wrapper">
+    <h1>Image Categories</h1>
+    <p>Browse our selection of predefined images</p>
+  </div>
+  <div class="image-selection-wrapper">
+    <ul class="grid-list">
+      <li class="grid-list-tile">
+        <a ng-click="image.openImageSelector()"
+          ng-hide="image.selection.getImage()">
+          <i class="glyphicon glyphicon-open-file"></i>
+          <div>Open file</div>
+        </a>
+        <div
+          ng-show="image.selection.getImage()">
+          <!-- show image metadata and 'CHANGE' button ONLY upon selection
+               through the image selector -->
+          {{ image.selection.getImage().path | basename }}
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

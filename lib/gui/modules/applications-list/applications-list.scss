@@ -1,0 +1,135 @@
+
+@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+$box-padding: .5 * $grid-gutter-width;
+$device-icon-width: 32px;
+
+.grid-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.grid-list-tile {
+  @include make-sm-column(6);
+  @include make-md-column(4);
+  @include make-lg-column(4);
+  /* @include make-xl-column(3); */
+  padding-top: $box-padding;
+  padding-bottom: $box-padding;
+}
+
+.tile-box {
+  @include box-shadow(rgba(184, 184, 184, .5) 0 0 5px);
+  display: block;
+  position: relative;
+  /* min-height: 415px; */
+  padding: $box-padding $box-padding 80px;
+  background-color: white;
+  /* @include border-radius(3px); */
+
+    /* This is equivalent to LESS' `a&` selector i.e. `a.tile-box` */
+  @at-root a#{&} {
+    text-decoration: none;
+
+    &:hover {
+      @include box-shadow(none);
+
+      // We paint an outline over the top of the element to prevent visual bugs
+      // that happen when using 'border' or 'outline' rules
+      &::before {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+        bottom: -3px;
+        left: -3px;
+        content: "";
+        border: 3px solid $brand-primary;
+        pointer-events: none;
+      }
+    }
+  }
+
+  label {
+    font-weight: 300; /* $font-weight-light; */
+    font-size: 15px;
+    text-transform: uppercase;
+  }
+}
+
+.tile-box-name {
+  position: relative;
+  font-weight: 300; /* $font-weight-light; */
+  font-size: 26px;
+  height: 55px;
+  line-height: 55px - $box-padding;
+  margin: 0 0 $box-padding;
+  border-bottom: 1px solid #ececec;
+  /* @include text-ellipsis; */
+}
+
+.tile-box-device-icon {
+  width: $device-icon-width;
+}
+
+.tile-box-suffix-icon {
+  font-size: 75%;
+}
+
+.tile-box-name-subtitle {
+  position: absolute;
+  bottom: -7px;
+  left: $device-icon-width + 7px;
+}
+
+.tile-box-footer {
+  background: #f3f3f3;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5 * $box-padding 0;
+}
+
+.tile-box-btn-container {
+  position: absolute;
+  bottom: $box-padding;
+  left: $box-padding;
+  right: $box-padding;
+}
+
+.tile-box-btn {
+  width: 100%;
+}
+
+.grid-list-plain {
+  @include box-shadow(none);
+  background: none;
+  border: 2px dashed #cecccc;
+}
+
+.applications-list--device-type-selector {
+  @include clearfix;
+  display: block;
+  width: 100%;
+
+  .btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    min-height: 45px;
+  }
+
+  .caret {
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    margin-top: -3px;
+  }
+
+  &.open > .dropdown-menu {
+    width: 100%;
+    margin: 0;
+  }
+}
+

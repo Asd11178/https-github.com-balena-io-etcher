@@ -1,0 +1,163 @@
+@box-padding: 0.5 * @grid-gutter-width;
+@device-icon-width: 32px;
+
+.applications-list {
+
+}
+
+.applications-list__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.applications-list__application {
+	.make-sm-column(6);
+	.make-md-column(4);
+	.make-lg-column(4);
+	.make-xl-column(3);
+	padding-top: @box-padding;
+	padding-bottom: @box-padding;
+}
+
+.appbox {
+	display: block;
+	position: relative;
+	min-height: 415px;
+	padding: @box-padding @box-padding 80px;
+	background-color: white;
+	.border-radius(3px);
+	.box-shadow(rgba(184, 184, 184, 0.5) 0 0 5px);
+
+	a& {
+		text-decoration: none;
+
+		&:hover {
+			.box-shadow(none);
+
+			// We paint an outline over the top of the element to prevent visual bugs
+			// that happen when using 'border' or 'outline' rules
+			&::before {
+				position: absolute;
+				top: -3px;
+				right: -3px;
+				bottom: -3px;
+				left: -3px;
+				content: '';
+				border: 3px solid @brand-primary;
+				pointer-events: none;
+			}
+		}
+	}
+}
+
+.appbox__name {
+	position: relative;
+	font-weight: @font-weight-light;
+	font-size: 26px;
+	height: 55px;
+	line-height: 55px - @box-padding;
+	margin: 0 0 @box-padding;
+	border-bottom: 1px solid #ececec;
+	.text-ellipsis;
+}
+
+.appbox__device-icon {
+	width: @device-icon-width;
+}
+
+.appbox__suffix-icon {
+	font-size: 75%;
+}
+
+.appbox__shared-info {
+	position: absolute;
+	bottom: -7px;
+	left: @device-icon-width + 7px;
+}
+
+.appbox__footer {
+	background: #f3f3f3;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 1.5 * @box-padding 0;
+}
+
+.appbox__btn-container {
+	position: absolute;
+	bottom: @box-padding;
+	left: @box-padding;
+	right: @box-padding;
+}
+
+.appbox__btn {
+	width: 100%;
+}
+
+.appbox--plain {
+	background: none;
+	border: 2px dashed #cecccc;
+	.box-shadow(none);
+}
+
+.appbox {
+	label {
+		font-weight: @font-weight-light;
+		font-size: 15px;
+		text-transform: uppercase;
+	}
+
+	.device-status-gauge {
+		margin: 0 auto;
+	}
+
+	.device-status-gauge__graph {
+		max-width: 170px;
+	}
+
+	.definition-list__item {
+		letter-spacing: -0.2px;
+		font-size: 13px;
+		line-height: 16px;
+		color: #4d4d4d;
+		margin-bottom: 0;
+	}
+
+	.definition-list__label {
+		letter-spacing: 0;
+		font-size: 9px;
+		line-height: 12px;
+		margin-bottom: 0;
+	}
+}
+
+.applications-list__new-app__name-group {
+	min-height: 155px;
+}
+
+.applications-list__device-type-selector {
+	.clearfix;
+	display: block;
+	width: 100%;
+
+	.btn {
+		display: block;
+		width: 100%;
+		text-align: left;
+		min-height: 45px;
+	}
+
+	.caret {
+		position: absolute;
+		right: 11px;
+		top: 50%;
+		margin-top: -3px;
+	}
+
+	&.open > .dropdown-menu {
+		width: 100%;
+		margin: 0;
+	}
+}

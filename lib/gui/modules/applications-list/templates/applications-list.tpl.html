@@ -1,0 +1,47 @@
+<div class="applications-list">
+	<notice-board name="{{ ::NOTICE_BOARD_NAME }}"></notice-board>
+
+	<div uib-alert class="alert-info" ng-hide="apps">Loading applications...</div>
+
+	<ul class="applications-list__list">
+		<li class="applications-list__application applications-list__new-app"
+			ng-if="loaded">
+			<create-application
+				parent-application="parentApplication"
+				existing-applications="myOwnApps"
+				notice-board="{{ ::NOTICE_BOARD_NAME }}"
+				focus-form="apps.length == 0"></create-application>
+		</li>
+
+		<li class="applications-list__application"
+			ng-repeat="app in apps | orderBy:'app_name' track by app.id">
+			<a class="appbox" ui-sref="dashboard.application({ appId: app.id })" title="{{ ::app.app_name }}">
+				<h3 class="appbox__name">
+					<device-logo class="appbox__device-icon" type="::app.device_type" is-disabled="false"></device-logo>
+					{{ ::app.app_name }}
+					<application-shared-info class="appbox__shared-info"
+						ng-if="::(!isAppOwnedByCurrentUser(app))"
+						application="::app"></application-shared-info>
+					<i class="fa fa-sitemap appbox__suffix-icon"
+						ng-if="app.has_dependent"
+						uib-tooltip="This application has dependent applications"></i>
+				</h3>
+				<device-status-gauge devices="app.device"></device-status-gauge>
+				<div class="appbox__footer">
+					<div class="definition-list">
+						<div class="definition-list__item col-xs-6">
+							<strong class="definition-list__label">Commit</strong>
+							<span ng-show="::app.commit">{{ ::app.commit | limitTo: 12 }}</span>
+							<span ng-hide="::app.commit">No commit</span>
+						</div>
+						<div class="definition-list__item col-xs-6"
+							ng-if="::app.device_type_info.arch">
+							<strong class="definition-list__label">Architecture</strong>
+							<span>{{ ::app.device_type_info.arch }}</span>
+						</div>
+					</div>
+				</div>
+			</a>
+		</li>
+	</ul>
+</div>

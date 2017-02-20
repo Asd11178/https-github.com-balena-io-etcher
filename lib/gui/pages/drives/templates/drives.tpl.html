@@ -1,0 +1,38 @@
+<div id="drives-page">
+  <div>
+    <h1>Removable Drives</h1>
+    <span>Select one of the drives below</span>
+  </div>
+  <ul id="drives" class="grid-list">
+    <li class="grid-list-tile"
+      ng-repeat="drive in drives.getDrives() track by drive.device">
+      <div class="tile-box"
+       ng-disabled="drive.system">
+        <h3 class="tile-box-name">
+          <i class="glyphicon glyphicon-hdd"></i>
+          {{ ::drive.size | gigabyte | number:1 }}GB
+          <span class="tile-box-name-subtitle">
+            {{ ::drive.name }}
+          </span>
+        </h3>
+        <span class="tile-box-footer"
+          ng-class="{
+            'selected-drive': drives.selection.isCurrentDrive(drive.device)
+          }">
+          {{ ::drive.description }}
+        </span>
+        <div class="tile-hover">
+          <div class="tile-hover-title">
+            <span class="heading-prime">{{ ::drive.description }}</span>
+            <span class="heading-meta">{{ ::drive.size | gigabyte | number:1 }}GB</span>
+          </div>
+          <ul class="drive-options-list">
+            <li>Re-configure drive</li>
+            <li>Read instructions</li>
+            <li>Backup drive</li>
+            <li ng-click="drives.selectDrive(drive)">Select Target</li>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

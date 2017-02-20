@@ -1,0 +1,57 @@
+<form name="newAppForm"
+	class="appbox appbox--plain"
+	ng-show="deviceTypeOptions">
+
+	<div class="form-group applications-list__new-app__name-group" ng-class="{
+			'has-error': newAppForm.$dirty && hasError(newAppForm.applicationName),
+			'has-success': newAppForm.$dirty && !hasError(newAppForm.applicationName)
+		}">
+		<label for="applicationName">Application Name</label>
+		<input type="text"
+			class="form-control input-lg applications-list__new-app__name"
+			id="applicationName"
+			name="applicationName"
+			ng-model="newApplication.name"
+			no-browser-text-helpers
+			ng-pattern="/^[a-zA-Z0-9]+$/"
+			ng-minlength="4"
+			ng-maxlength="30"
+			case-insensitive-unique-validator="existingApplications"
+			case-insensitive-unique-key="app_name"
+			focus-when="focusForm"
+			required>
+		<p class="help-block" ng-show="!newAppForm.$dirty">
+			The application name should be at least 4 characters long.
+			It can only contain letters and numbers.
+		</p>
+		<div ng-show="newAppForm.$dirty">
+			<p class="help-block" ng-show="newAppForm.applicationName.$error.required">An application name is required.</p>
+			<p class="help-block" ng-show="newAppForm.applicationName.$error.pattern">The application name can only contain letters and numbers.</p>
+			<p class="help-block" ng-show="newAppForm.applicationName.$error.minlength">The application name should be at least 4 characters long.</p>
+			<p class="help-block" ng-show="newAppForm.applicationName.$error.maxlength">The application name should not be more than 30 characters long.</p>
+			<p class="help-block" ng-show="newAppForm.applicationName.$error.caseInsensitiveUniqueValidator">This name is already used by another application. Note that the name is case-insensitive.</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="newAppDeviceType">Device Type</label>
+		<dropdown-select
+			class="applications-list__device-type-selector"
+			id="newAppDeviceType"
+			name="deviceType"
+			ng-model="newApplication.deviceType"
+			options="deviceTypeOptions">
+			<device-logo type="newApplication.deviceType"></device-logo>
+			{{ deviceTypeDisplayName(newApplication.deviceType) }}
+		</dropdown-select>
+	</div>
+
+	<div class="appbox__btn-container">
+		<button type="submit" class="appbox__btn btn btn-primary btn-lg btn-alt btn-block"
+			ng-disabled="!canSubmit(newAppForm)"
+			ng-click="canSubmit(newAppForm) && add()">
+			Create New Application
+		</button>
+	</div>
+
+</form>

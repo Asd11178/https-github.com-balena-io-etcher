@@ -1,0 +1,87 @@
+
+#header-menu {
+  list-style: none;
+  display: flex;
+}
+
+.header-menu-button {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  border-color: #ddd;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  cursor: pointer;
+}
+
+.header-menu-button::before,
+.header-menu-button::after,
+.selected-header::before,
+.selected-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 100%;
+  border-bottom: 2px solid black;
+  /* Faster transition out */
+  transition: all .2s ease-in-out;
+  box-sizing: content-box;
+}
+
+.header-menu-button::before {
+  left: -.1%;
+}
+
+.header-menu-button::after {
+  right: -.1%;
+}
+
+.header-menu-button:hover::before,
+.header-menu-button:hover::after,
+.selected-header::before,
+.selected-header::after {
+  width: 50.1%;
+  transition: all .3s ease-in-out;
+}
+
+.header-menu-button[disabled]:hover::before,
+.header-menu-button[disabled]:hover::after {
+  border: 0;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-weight: bold;
+  color: #ddd;
+}
+
+.selected-header {
+  border-color: black;
+}
+
+.selected-header > .header-title {
+  color: black;
+}
+
+.header-menu-button[disabled] svg,
+.header-menu-button[disabled]:hover svg {
+  stroke: white;
+  fill: #ddd;
+}
+
+.header-menu-button svg {
+  stroke: white;
+  fill: #666;
+}
+
+.header-menu-button.selected-header svg,
+.header-menu-button:hover svg {
+  stroke: white;
+  fill: #101010;
+}
+
