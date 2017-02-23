@@ -29,3 +29,17 @@
   flex-direction: column;
 }
 
+.drive-options-list {
+  list-style: none;
+  padding: 0;
+}
+
+.drive-options-list > li {
+  display: flex;
+  justify-content: center;
+}
+
+.drive-options-select {
+  background-color: $palette-theme-dark-background;
+}
+
