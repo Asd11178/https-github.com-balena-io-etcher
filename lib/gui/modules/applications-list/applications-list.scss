@@ -20,7 +20,6 @@ $device-icon-width: 32px;
 }
 
 .tile-box {
-  @include box-shadow(rgba(184, 184, 184, .5) 0 0 5px);
   display: block;
   position: relative;
   /* min-height: 415px; */
@@ -33,7 +32,6 @@ $device-icon-width: 32px;
     text-decoration: none;
 
     &:hover {
-      @include box-shadow(none);
 
       // We paint an outline over the top of the element to prevent visual bugs
       // that happen when using 'border' or 'outline' rules
@@ -60,12 +58,11 @@ $device-icon-width: 32px;
 .tile-box-name {
   position: relative;
   font-weight: 300; /* $font-weight-light; */
-  font-size: 26px;
   height: 55px;
-  line-height: 55px - $box-padding;
   margin: 0 0 $box-padding;
   border-bottom: 1px solid #ececec;
   /* @include text-ellipsis; */
+  display: flex;
 }
 
 .tile-box-device-icon {
@@ -88,7 +85,7 @@ $device-icon-width: 32px;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1.5 * $box-padding 0;
+  padding: 13px 0;
 }
 
 .tile-box-btn-container {

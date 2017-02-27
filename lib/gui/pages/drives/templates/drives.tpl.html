@@ -1,6 +1,6 @@
 <div id="drives-page">
-  <div>
-    <h1>Removable Drives</h1>
+  <div class="page-header">
+    <h4>Removable Drives</h4>
     <span>Select one of the drives below</span>
   </div>
   <ul id="drives" class="grid-list">
@@ -8,30 +8,32 @@
       ng-repeat="drive in drives.getDrives() track by drive.device">
       <div class="tile-box"
        ng-disabled="drive.system">
-        <h3 class="tile-box-name">
+        <header class="tile-box-name">
           <i class="glyphicon glyphicon-hdd"></i>
-          {{ ::drive.size | gigabyte | number:1 }}GB
-          <span class="tile-box-name-subtitle">
-            {{ ::drive.name }}
-          </span>
-        </h3>
-        <span class="tile-box-footer"
+          <div class="tile-box-name-title">
+            {{ ::drive.size | gigabyte | number:1 }}GB
+            <span class="tile-box-name-subtitle">
+              {{ ::drive.name }}
+            </span>
+          </div>
+        </header>
+        <footer class="tile-box-footer"
           ng-class="{
             'selected-drive': drives.selection.isCurrentDrive(drive.device)
           }">
           {{ ::drive.description }}
-        </span>
-        <div class="tile-hover">
-          <div class="tile-hover-title">
+        </footer>
+        <div class="tile-hover drive-options">
+          <div class="tile-hover-title drive-options-title">
             <span class="heading-prime">{{ ::drive.description }}</span>
             <span class="heading-meta">{{ ::drive.size | gigabyte | number:1 }}GB</span>
           </div>
           <ul class="drive-options-list">
-            <li>Re-configure drive</li>
-            <li>Read instructions</li>
-            <li>Backup drive</li>
-            <li class="drive-options-select"
-              ng-click="drives.selectDrive(drive)">Select Target</li>
+            <li class="drive-options-element">Re-configure drive</li>
+            <li class="drive-options-element">Read instructions</li>
+            <li class="drive-options-element">Backup drive</li>
+            <li class="drive-options-element drive-options-select"
+              ng-click="drives.selectDriveAndGoImagePage(drive)">Select Target</li>
         </div>
       </div>
     </li>

@@ -36,13 +36,11 @@
           <span class="glyphicon glyphicon-chevron-left"></span> Back
         </button>
       </div>
-      <ul id="header-menu"
-        style="padding:0 20px;">
+      <ul id="header-menu">
         <li class="header-menu-button"
           style="flex-grow:1;display:flex;flex-direction:row;justify-content:center;align-items:center;padding:10px;"
           ng-class="{ 'selected-header': header.pageIs('drives') }"
-          ui-sref="drives"
-          ng-disabled="false">
+          ui-sref="drives">
           <svg-icon
              width="30px"
              height="30px"
@@ -59,13 +57,11 @@
         <li class="header-menu-button"
           style="flex-grow:1;display:flex;flex-direction:row;justify-content:center;align-items:center;padding:10px;"
           ng-class="{ 'selected-header': header.pageIs('images') }"
-          ui-sref="images"
-          ng-disabled="header.shouldImageStepBeDisabled()">
+          ui-sref="images">
           <svg-icon
             path="../../../assets/drive.svg"
             width="30px"
-            height="30px"
-            ng-disabled="header.shouldDriveStepBeDisabled()"></svg-icon>
+            height="30px"></svg-icon>
           <span class="header-title">
             <b>
               {{ ((header.selection.getImagePath() | basename) || 'Select Image') | middleEllipses:16 }}
