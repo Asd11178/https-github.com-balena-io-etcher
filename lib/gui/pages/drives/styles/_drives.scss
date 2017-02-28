@@ -53,14 +53,14 @@
   height: 100%;
   background-color: transparent;
   padding: 0 1em;
-  transition: top .3s ease-in-out .1s, background-color .3s ease-in-out .2s;
+  transition: top .3s ease-in-out, background-color .3s ease-in-out .1s;
 }
 
 .tile-box:hover > .tile-hover,
 .tile-hover:hover {
   top: 0;
   background-color: #efefef;
-  transition: top .3s ease-in-out .1s, background-color .3s ease-in-out .2s;
+  transition: top .3s ease-in-out .1s, background-color .3s ease-in-out;
 }
 
 .drive-options-list {
