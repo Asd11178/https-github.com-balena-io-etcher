@@ -16,17 +16,19 @@
 
 #drives-page .tile-box {
   position: relative;
-  height: 176px;
+  height: 200px;
   background-color: $palette-theme-light-soft-background;
+  overflow: hidden;
 }
 
 #drives-page .tile-box-name-title {
   font-size: 13px;
+  margin: 0 10px;
 }
 
 #drives-page .tile-box-name-subtitle {
   font-size: 11px;
-  color: $palette-theme-dark-soft-foreground;
+  color: $palette-theme-light-soft-foreground;
 }
 
 #drives-page .tile-box-name i {
@@ -43,19 +45,22 @@
 
 .tile-hover {
   position: absolute;
-  display: none;
-  top: 0;
+  display: flex;
+  flex-direction: column;
+  top: -100%;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #efefef;
+  background-color: transparent;
   padding: 0 1em;
+  transition: top .3s ease-in-out .1s, background-color .3s ease-in-out .2s;
 }
 
 .tile-box:hover > .tile-hover,
 .tile-hover:hover {
-  display: flex;
-  flex-direction: column;
+  top: 0;
+  background-color: #efefef;
+  transition: top .3s ease-in-out .1s, background-color .3s ease-in-out .2s;
 }
 
 .drive-options-list {

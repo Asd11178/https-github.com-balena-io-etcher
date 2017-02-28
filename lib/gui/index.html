@@ -44,7 +44,7 @@
           <svg-icon
              width="30px"
              height="30px"
-             path="{{ header.selection.getImageLogo() || '../../../assets/image.svg' }}"></svg-icon>
+             path="{{ header.selection.getImageLogo() || '../../../assets/drive.svg' }}"></svg-icon>
           <span class="header-title">
             <b>
               {{ ((header.selection.getDrive().description) || 'Select Drive') | middleEllipses:20 }}
@@ -59,7 +59,7 @@
           ng-class="{ 'selected-header': header.pageIs('images') }"
           ui-sref="images">
           <svg-icon
-            path="../../../assets/drive.svg"
+            path="../../../assets/image.svg"
             width="30px"
             height="30px"></svg-icon>
           <span class="header-title">
