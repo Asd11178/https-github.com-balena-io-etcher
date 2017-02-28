@@ -1,18 +1,40 @@
 <div
   ng-controller="ImageSelectionController as image">
-  <div class="image-search-wrapper">
+  <div class="image-search-wrapper"
+    style="margin:35px 0;">
+    <div
+      style="display:flex;margin-bottom:10px;">
+      <input placeholder="Search Image Catalog"
+        style="flex-grow:1;padding:14px 16px;border-radius:1px;border:1px solid gray;"/>
+      <span
+        style="margin-left:-2em;margin-top:.5em;">
+        <i class="glyphicon glyphicon-search"></i>
+      </span>
+    </div>
+    <div
+      style="display:flex;justify-content:flex-end;">
+      <i class="glyphicon glyphicon-filter"></i>
+      Refine my search
+    </div>
   </div>
   <div class="image-header-wrapper">
-    <h1>Image Categories</h1>
+    <h4>Image Categories</h1>
     <p>Browse our selection of predefined images</p>
   </div>
   <div class="image-selection-wrapper">
     <ul class="grid-list">
-      <li class="grid-list-tile">
+      <li class="grid-list-tile"
+        style="width:200px;height:200px;border:2px dashed gray;border-radius:5px;">
         <a ng-click="image.openImageSelector()"
+          style="display:flex;flex-direction:column;align-items:center;height:100%;"
           ng-hide="image.selection.getImage()">
-          <i class="glyphicon glyphicon-open-file"></i>
-          <div>Open file</div>
+          <div
+            style="font-size:50px;flex-grow:1;display:flex;align-items:center;">
+            <i class="glyphicon glyphicon-open-file"
+              style="flex-grow:2;color:gray;"></i>
+          </div>
+          <div
+            style="color:dimGray;font-weight:bold;">Open file</div>
         </a>
         <div
           ng-show="image.selection.getImage()">
@@ -20,6 +42,14 @@
                through the image selector -->
           {{ image.selection.getImage().path | basename }}
         </div>
+      </li>
+      <li>
+        <a ng-click="false"
+          style="">
+          <div>
+            <i class="glyphicon glyphicon-computer"></i>
+          </div>
+          <div>Desktop & Laptop</div>
       </li>
     </ul>
   </div>

@@ -6221,7 +6221,8 @@ body {
   border-color: #ddd;
   border-bottom-width: 2px;
   border-bottom-style: solid;
-  cursor: pointer; }
+  cursor: pointer;
+  width: 33%; }
 
 .header-menu-button::before,
 .header-menu-button::after,
