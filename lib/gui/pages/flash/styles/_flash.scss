@@ -1,0 +1,39 @@
+
+#flash-page {
+  display: flex;
+}
+
+.flash-configuration {
+  width: 56%;
+
+  > header {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 2px solid #000;
+  }
+
+  > main {
+    display: flex;
+    margin: 20px 0;
+  }
+}
+
+.flash-sidebar {
+  border-right: 1px solid black;
+
+  > section > header {
+    font-weight: bold;
+  }
+}
+
+.flash-sidebar-item {
+  color: dimGray;
+  margin: 10px 20px;
+}
+
+.flash-sidebar-selected {
+  color: black;
+}
+
+

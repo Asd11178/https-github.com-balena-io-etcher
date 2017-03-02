@@ -1,1 +1,61 @@
-<spiral-loader></spiral-loader>
+<div id="flash-page">
+  <div class="flash-configuration">
+    <header>
+      Image configuration
+    </header>
+    <main>
+      <div class="flash-sidebar">
+        <section ng-repeat="i in [1,2]"
+          class="flash-sidebar-item flash-sidebar-selected">
+          <header>
+            Category 0{{ ::i }}
+          </header>
+        </section>
+      </div>
+      <div>
+        <section
+          ng-repeat="i in [1,2]"
+          ng-click="true">
+          <header>
+            Subcategory Title 0{{ ::i }}
+          </header>
+          <main>
+            <div>
+              <div>Input Field</div>
+              <label>
+                <input placeholder="Input Text" />
+              </label>
+            </div>
+            <div>
+              <div>
+                Dropdown Field
+              </div>
+              <label>
+                <select>
+                  <option>Input Text</option>
+                </select>
+              </label>
+            </div>
+            <div>
+              <div>
+                Confirmation Field
+              </div>
+              <label>
+                <input type="checkbox" />
+              </label>
+            </div>
+            <div>
+              <div>Combo Input Field</div>
+              <label>
+                <input />
+              </label>
+            </div>
+          </main>
+        </section>
+      </div>
+    </main>
+  </div>
+  <div>
+    <spiral-loader></spiral-loader>
+  </div>
+</div>

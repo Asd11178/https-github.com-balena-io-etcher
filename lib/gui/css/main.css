@@ -6784,6 +6784,32 @@ body {
   color: #fff;
   font-weight: bold; }
 
+#flash-page {
+  display: flex; }
+
+.flash-configuration {
+  width: 56%; }
+  .flash-configuration > header {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 2px solid #000; }
+  .flash-configuration > main {
+    display: flex;
+    margin: 20px 0; }
+
+.flash-sidebar {
+  border-right: 1px solid black; }
+  .flash-sidebar > section > header {
+    font-weight: bold; }
+
+.flash-sidebar-item {
+  color: dimGray;
+  margin: 10px 20px; }
+
+.flash-sidebar-selected {
+  color: black; }
+
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
