@@ -6224,6 +6224,7 @@ body {
   cursor: pointer;
   width: 33%; }
 
+/* Transition animation set-up */
 .header-menu-button::before,
 .header-menu-button::after,
 .selected-header::before,
@@ -6260,7 +6261,8 @@ body {
   align-items: center;
   padding-left: 10px;
   font-weight: bold;
-  color: #b3b3b3; }
+  color: #b3b3b3;
+  font-size: 12px; }
 
 .selected-header {
   border-color: black; }
@@ -6281,6 +6283,9 @@ body {
 .header-menu-button:hover svg {
   stroke: white;
   fill: #101010; }
+
+body > footer svg {
+  fill: #535760; }
 
 /*
  * Copyright 2016 resin.io
@@ -6725,11 +6730,19 @@ body {
   font-size: 16px; }
 
 .selected-drive {
-  color: skyBlue; }
+  color: #5793db; }
+
+#drives-page .grid-list-tile {
+  width: 200px;
+  height: 125px;
+  margin: 15px 18px; }
+  #drives-page .grid-list-tile:nth-of-type(3n-2) {
+    margin-left: 0; }
+  #drives-page .grid-list-tile:nth-of-type(3n) {
+    margin-right: 0; }
 
 #drives-page .tile-box {
   position: relative;
-  height: 200px;
   background-color: #fafafa;
   overflow: hidden; }
 
@@ -6760,13 +6773,25 @@ body {
   height: 100%;
   background-color: transparent;
   padding: 0 1em;
-  transition: top .3s ease-in-out, background-color .3s ease-in-out .1s; }
+  transition: top .3s ease-in-out, background-color .3s ease-in-out .1s;
+  overflow: hidden; }
 
 .tile-box:hover > .tile-hover,
 .tile-hover:hover {
   top: 0;
   background-color: #efefef;
   transition: top .3s ease-in-out .1s, background-color .3s ease-in-out; }
+
+.drive-options-element.drive-options-toggler {
+  background-color: transparent;
+  border: 1px solid #535760; }
+
+.drive-options-toggler input:checked + .drive-options-extra {
+  display: flex;
+  transition: all .3s ease-in-out; }
+
+.drive-options-more {
+  display: none; }
 
 .drive-options-list {
   list-style: none;
@@ -6782,26 +6807,43 @@ body {
 .drive-options-select {
   background-color: #535760;
   color: #fff;
-  font-weight: bold; }
+  font-weight: bold;
+  padding: 1.1em; }
+
+.tile-hover-title {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0 0 0; }
+  .tile-hover-title > span {
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+    padding: 0 .25em; }
 
 #flash-page {
   display: flex; }
 
-.flash-configuration {
+.flash-config-wrap {
   width: 56%; }
-  .flash-configuration > header {
+  .flash-config-wrap > header {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 16px;
     border-bottom: 2px solid #000; }
-  .flash-configuration > main {
+  .flash-config-wrap > main {
     display: flex;
     margin: 20px 0; }
 
 .flash-sidebar {
   border-right: 1px solid black; }
-  .flash-sidebar > section > header {
-    font-weight: bold; }
+  .flash-sidebar section > header {
+    margin: 10px 0; }
+
+.flash-config-area {
+  margin: 10px 20px; }
+
+section > header {
+  font-weight: bold; }
 
 .flash-sidebar-item {
   color: dimGray;
@@ -12730,43 +12772,20 @@ button.close {
     display: none !important; } }
 
 .grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   list-style: none;
   margin: 0;
   padding: 0; }
 
 .grid-list-tile {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-  /* @include make-xl-column(3); */
-  padding-top: 15px;
-  padding-bottom: 15px; }
-  @media (min-width: 768px) {
-    .grid-list-tile {
-      float: left;
-      width: 50%; } }
-  @media (min-width: 992px) {
-    .grid-list-tile {
-      float: left;
-      width: 33.33333%; } }
-  @media (min-width: 1200px) {
-    .grid-list-tile {
-      float: left;
-      width: 33.33333%; } }
+  margin-top: 15px;
+  margin-bottom: 15px; }
 
 .tile-box {
   display: block;
   position: relative;
-  /* min-height: 415px; */
   padding: 15px 15px 80px;
   background-color: white;
   /* @include border-radius(3px); */
@@ -12794,7 +12813,6 @@ button.close {
   /* $font-weight-light; */
   height: 55px;
   margin: 0 0 15px;
-  border-bottom: 1px solid #ececec;
   /* @include text-ellipsis; */
   display: flex; }
 

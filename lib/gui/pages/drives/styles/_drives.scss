@@ -11,12 +11,25 @@
 }
 
 .selected-drive {
-  color: skyBlue;
+  color: $palette-theme-primary-background;
+}
+
+#drives-page .grid-list-tile {
+  width: 200px;
+  height: 125px;
+  margin: 15px 18px;
+
+  &:nth-of-type(3n-2) {
+    margin-left: 0;
+  }
+
+  &:nth-of-type(3n) {
+    margin-right: 0;
+  }
 }
 
 #drives-page .tile-box {
   position: relative;
-  height: 200px;
   background-color: $palette-theme-light-soft-background;
   overflow: hidden;
 }
@@ -54,6 +67,7 @@
   background-color: transparent;
   padding: 0 1em;
   transition: top .3s ease-in-out, background-color .3s ease-in-out .1s;
+  overflow: hidden;
 }
 
 .tile-box:hover > .tile-hover,
@@ -61,6 +75,20 @@
   top: 0;
   background-color: #efefef;
   transition: top .3s ease-in-out .1s, background-color .3s ease-in-out;
+}
+
+.drive-options-element.drive-options-toggler {
+  background-color: transparent;
+  border: 1px solid $palette-theme-dark-background;
+}
+
+.drive-options-toggler input:checked + .drive-options-extra {
+  display: flex;
+  transition: all .3s ease-in-out;
+}
+
+.drive-options-more {
+  display: none;
 }
 
 .drive-options-list {
@@ -80,5 +108,19 @@
   background-color: $palette-theme-dark-background;
   color: $palette-theme-dark-foreground;
   font-weight: bold;
+  padding: 1.1em;
+}
+
+.tile-hover-title {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0 0 0;
+
+  > span {
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+    padding: 0 .25em;
+  }
 }
 

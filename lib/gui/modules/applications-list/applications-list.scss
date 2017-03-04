@@ -5,24 +5,22 @@ $box-padding: .5 * $grid-gutter-width;
 $device-icon-width: 32px;
 
 .grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .grid-list-tile {
-  @include make-sm-column(6);
-  @include make-md-column(4);
-  @include make-lg-column(4);
-  /* @include make-xl-column(3); */
-  padding-top: $box-padding;
-  padding-bottom: $box-padding;
+  margin-top: $box-padding;
+  margin-bottom: $box-padding;
 }
 
 .tile-box {
   display: block;
   position: relative;
-  /* min-height: 415px; */
   padding: $box-padding $box-padding 80px;
   background-color: white;
   /* @include border-radius(3px); */
@@ -60,7 +58,6 @@ $device-icon-width: 32px;
   font-weight: 300; /* $font-weight-light; */
   height: 55px;
   margin: 0 0 $box-padding;
-  border-bottom: 1px solid #ececec;
   /* @include text-ellipsis; */
   display: flex;
 }

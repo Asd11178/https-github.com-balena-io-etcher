@@ -1,23 +1,22 @@
 <div id="flash-page">
-  <div class="flash-configuration">
+  <div class="flash-config-wrap">
     <header>
       Image configuration
     </header>
     <main>
       <div class="flash-sidebar">
         <section ng-repeat="i in [1,2]"
+          ng-click="true"
           class="flash-sidebar-item flash-sidebar-selected">
           <header>
             Category 0{{ ::i }}
           </header>
         </section>
       </div>
-      <div>
-        <section
-          ng-repeat="i in [1,2]"
-          ng-click="true">
+      <div class="flash-config-area">
+        <section>
           <header>
-            Subcategory Title 0{{ ::i }}
+            Subcategory Title 01
           </header>
           <main>
             <div>

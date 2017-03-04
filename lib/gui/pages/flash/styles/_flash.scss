@@ -3,7 +3,7 @@
   display: flex;
 }
 
-.flash-configuration {
+.flash-config-wrap {
   width: 56%;
 
   > header {
@@ -22,9 +22,17 @@
 .flash-sidebar {
   border-right: 1px solid black;
 
-  > section > header {
-    font-weight: bold;
+  section > header {
+    margin: 10px 0;
   }
+}
+
+.flash-config-area {
+  margin: 10px 20px;
+}
+
+section > header {
+  font-weight: bold;
 }
 
 .flash-sidebar-item {

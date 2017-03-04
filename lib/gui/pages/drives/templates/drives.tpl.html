@@ -28,12 +28,16 @@
             <span class="heading-prime">{{ ::drive.description }}</span>
             <span class="heading-meta">{{ ::drive.size | gigabyte | number:1 }}GB</span>
           </div>
-          <ul class="drive-options-list">
+          <button class="drive-options-element drive-options-select"
+            ng-click="drives.selectDriveAndGoImagePage(drive)">Select Target</button>
+          <button class="drive-options-element drive-options-toggler"
+            ng-click="drives.toggleMoreOptions(drive)">More Actions</button>
+          <ul class="drive-options-more"
+            ng-show="false">
             <li class="drive-options-element">Re-configure drive</li>
             <li class="drive-options-element">Read instructions</li>
             <li class="drive-options-element">Backup drive</li>
-            <li class="drive-options-element drive-options-select"
-              ng-click="drives.selectDriveAndGoImagePage(drive)">Select Target</li>
+          </ul>
         </div>
       </div>
     </li>
