@@ -6821,7 +6821,31 @@ body > footer svg {
     padding: 0 .25em; }
 
 #flash-page {
-  display: flex; }
+  display: flex;
+  height: 100%; }
+
+.flash-config-area > section > header {
+  border-bottom: 2px solid dimGray;
+  text-transform: uppercase;
+  padding-bottom: 10px; }
+
+.flash-config-area .input-label {
+  font-weight: bold;
+  color: #8b8f91;
+  margin-top: 20px; }
+
+.flash-config-area input,
+.flash-config-area select {
+  width: 210px;
+  background-color: #f5f5f5;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: dimGray; }
+
+.flash-spiral-loader {
+  display: flex;
+  align-items: center; }
 
 .flash-config-wrap {
   width: 56%; }
@@ -12868,6 +12892,8 @@ button.close {
     margin: 0; }
 
 body {
+  display: flex;
+  flex-direction: column;
   letter-spacing: 1px; }
 
 .section-footer {

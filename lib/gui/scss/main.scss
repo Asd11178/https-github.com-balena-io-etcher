@@ -47,6 +47,8 @@ $link-color: #ddd;
 @import "../modules/applications-list/applications-list.scss";
 
 body {
+  display: flex;
+  flex-direction: column;
   letter-spacing: 1px;
 }
 

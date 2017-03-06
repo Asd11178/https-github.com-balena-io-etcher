@@ -1,6 +1,34 @@
 
 #flash-page {
   display: flex;
+  height: 100%;
+}
+
+.flash-config-area > section > header {
+  border-bottom: 2px solid dimGray;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+}
+
+.flash-config-area .input-label {
+  font-weight: bold;
+  color: $palette-theme-dimlight-soft-foreground;
+  margin-top: 20px;
+}
+
+.flash-config-area input,
+.flash-config-area select {
+  width: 210px;
+  background-color: $palette-theme-dimlight-soft-background;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: dimGray;
+}
+
+.flash-spiral-loader {
+  display: flex;
+  align-items: center;
 }
 
 .flash-config-wrap {
