@@ -6284,6 +6284,9 @@ body {
   stroke: white;
   fill: #101010; }
 
+body > main {
+  flex-grow: 2; }
+
 body > footer svg {
   fill: #535760; }
 
@@ -6843,9 +6846,40 @@ body > footer svg {
   padding: 5px 10px;
   color: dimGray; }
 
+.flash-config-area label > input[type="checkbox"] {
+  display: none; }
+
+.flash-config-area input[type="checkbox"] + .faux-checkbox {
+  position: relative;
+  width: 20px;
+  height: 9px;
+  background-color: #ace48d;
+  border-radius: 25px;
+  cursor: pointer; }
+
+.flash-config-area input[type="checkbox"] + .faux-checkbox::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #5cba28;
+  transition: left ease-in-out .3s; }
+
+.flash-config-area input[type="checkbox"]:checked + .faux-checkbox::before {
+  left: 8px;
+  transition: left ease-in-out .3s; }
+
+.flash-config-area .input-label > label {
+  padding-right: 10px; }
+
 .flash-spiral-loader {
   display: flex;
-  align-items: center; }
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1; }
 
 .flash-config-wrap {
   width: 56%; }
@@ -12925,7 +12959,6 @@ body {
     top: 50%; }
 
 .wrapper {
-  height: 100%;
   margin: 20px 60px; }
 
 .section-header {

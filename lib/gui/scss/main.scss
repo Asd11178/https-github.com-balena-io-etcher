@@ -31,6 +31,7 @@ $link-color: #ddd;
 @import "./components/button";
 @import "./components/tick";
 @import "./components/header";
+@import "./components/main";
 @import "./components/footer";
 @import "../components/modal/styles/modal";
 @import "../components/update-notifier/styles/update-notifier";
@@ -95,7 +96,6 @@ body {
 }
 
 .wrapper {
-  height: 100%;
   margin: 20px 60px;
 }
 
