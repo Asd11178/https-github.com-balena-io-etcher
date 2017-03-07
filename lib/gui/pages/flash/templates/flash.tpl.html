@@ -5,9 +5,10 @@
     </header>
     <main>
       <div class="flash-sidebar">
-        <section ng-repeat="i in [1,2]"
+        <section class="flash-sidebar-item"
+          ng-repeat="i in [1,2,3]"
           ng-click="true"
-          class="flash-sidebar-item flash-sidebar-selected">
+          ng-class="{'flash-sidebar-selected': 'i == 2'}">
           <header>
             Category 0{{ ::i }}
           </header>
@@ -62,6 +63,12 @@
         </section>
       </div>
     </main>
+    <footer>
+      <button class="button"
+        ng-click="
+          flash.flashImageToDrive(flash.selection.getImagePath(), flash.selection.getDrive());
+          flash.animateFlashSpiral($element)">Confirm</button>
+    </footer>
   </div>
   <div class="flash-spiral-loader">
     <spiral-loader size="250px"></spiral-loader>

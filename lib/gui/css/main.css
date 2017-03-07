@@ -6853,9 +6853,12 @@ body > footer svg {
   position: relative;
   width: 20px;
   height: 9px;
-  background-color: #ace48d;
+  background-color: #c4c4c4;
   border-radius: 25px;
   cursor: pointer; }
+
+.flash-config-area input[type="checkbox"]:checked + .faux-checkbox {
+  background-color: #ace48d; }
 
 .flash-config-area input[type="checkbox"] + .faux-checkbox::before {
   content: '';
@@ -6865,12 +6868,13 @@ body > footer svg {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #5cba28;
+  background-color: #e3e3e3;
   transition: left ease-in-out .3s; }
 
 .flash-config-area input[type="checkbox"]:checked + .faux-checkbox::before {
   left: 8px;
-  transition: left ease-in-out .3s; }
+  background-color: #5cba28;
+  transition: all ease-in-out .3s; }
 
 .flash-config-area .input-label > label {
   padding-right: 10px; }
