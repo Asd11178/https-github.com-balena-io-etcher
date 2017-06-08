@@ -1,21 +1,128 @@
 {
   "name": "etcher",
-  "displayName": "Etcher",
   "version": "1.0.0",
   "updates": {
     "sleepDays": 7,
     "semverRange": "<2.0.0"
   },
   "main": "lib/start.js",
-  "description": "Flash OS images to SD cards & USB drives, safely and easily.",
-  "productDescription": "Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more.",
+  "description": "Flash OS images to SD cards and USB drives, safely and easily.",
   "homepage": "https://github.com/resin-io/etcher",
   "gypfile": true,
   "repository": {
     "type": "git",
     "url": "git@github.com:resin-io/etcher.git"
   },
+  "build": {
+    "appId": "io.resin.etcher",
+    "copyright": "Copyright 2016 Resinio Ltd",
+    "productName": "Etcher",
+    "npmRebuild": true,
+    "nodeGypRebuild": true,
+    "forceCodeSigning": true,
+    "files": [
+      "lib",
+      "assets/icon.png",
+      "node_modules/**/*"
+    ],
+    "asar": {
+      "smartUnpack": false
+    },
+    "asarUnpack": [
+      "**/*.dll",
+      "**/*.node"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "icon": "assets/icon.icns"
+    },
+    "dmg": {
+      "background": "assets/osx/installer@2x.png",
+      "icon": "assets/icon.icns",
+      "iconSize": 110,
+      "contents": [
+        {
+          "x": 140,
+          "y": 225
+        },
+        {
+          "x": 415,
+          "y": 225,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ],
+      "window": {
+        "width": 540,
+        "height": 405
+      }
+    },
+    "win": {
+      "icon": "assets/icon.ico"
+    },
+    "squirrelWindows": {
+      "iconUrl": "https://github.com/resin-io/etcher/blob/master/assets/icon.ico?raw=true"
+    },
+    "linux": {
+      "category": "Utility",
+      "packageCategory": "utils",
+      "executableName": "etcher",
+      "synopsis": "Etcher is a powerful OS image flasher built with web technologies to ensure flashing an SDCard or USB drive is a pleasant and safe experience. It protects you from accidentally writing to your hard-drives, ensures every byte of data was written correctly and much more."
+    },
+    "deb": {
+      "icon": "assets/icon.png",
+      "priority": "optional",
+      "depends": [
+        "gconf2",
+        "gconf-service",
+        "libappindicator1",
+        "libasound2",
+        "libatk1.0-0",
+        "libc6",
+        "libcairo2",
+        "libcups2",
+        "libdbus-1-3",
+        "libexpat1",
+        "libfontconfig1",
+        "libfreetype6",
+        "libgcc1",
+        "libgconf-2-4",
+        "libgdk-pixbuf2.0-0",
+        "libglib2.0-0",
+        "libgtk2.0-0",
+        "liblzma5",
+        "libnotify4",
+        "libnspr4",
+        "libnss3",
+        "libpango1.0-0",
+        "libstdc++6",
+        "libx11-6",
+        "libxcomposite1",
+        "libxcursor1",
+        "libxdamage1",
+        "libxext6",
+        "libxfixes3",
+        "libxi6",
+        "libxrandr2",
+        "libxrender1",
+        "libxss1",
+        "libxtst6",
+        "polkit-1-auth-agent | policykit-1-gnome | polkit-kde-1"
+      ]
+    },
+    "appimage": {
+      "icon": "assets/icon.png"
+    },
+    "rpm": {
+      "icon": "assets/icon.png",
+      "depends": [
+        "lsb",
+        "libXScrnSaver"
+      ]
+    }
+  },
   "scripts": {
+    "postinstall": "install-app-deps",
     "test": "npm run lint && electron-mocha --recursive --renderer tests/gui -R spec && electron-mocha --recursive tests/shared tests/child-writer tests/image-stream -R spec",
     "sass": "node-sass ./lib/gui/scss/main.scss > ./lib/gui/css/main.css",
     "cpplint": "cpplint --recursive src",
@@ -33,38 +140,12 @@
   },
   "author": "Juan Cruz Viotti <juan@resin.io>",
   "license": "Apache-2.0",
-  "copyright": "Copyright 2016 Resinio Ltd",
-  "companyName": "Resinio Ltd",
-  "packageIgnore": [
-    "LICENSE",
-    "Makefile",
-    "(.*)\\.pem",
-    "(.*)\\.p12",
-    "(.*)\\.log",
-    "assets/osx",
-    "appveyor.yml",
-    "bower.json",
-    "screenshot.png",
-    "tests",
-    "etcher-release",
-    "lib/scss",
-    "bin/etcher"
-  ],
   "shrinkwrapIgnore": [
     "macos-alias",
     "fs-xattr",
     "ds-store",
     "appdmg"
   ],
-  "builder": {
-    "win": {
-      "title": "Etcher",
-      "version": "v1.0.0",
-      "publisher": "Resin.io",
-      "icon": "assets/icon.ico",
-      "verbosity": 1
-    }
-  },
   "dependencies": {
     "angular": "1.6.3",
     "angular-if-state": "^1.0.0",
@@ -118,7 +199,7 @@
     "asar": "^0.10.0",
     "browserify": "github:jviotti/node-browserify#dynamic-dirname-filename",
     "electron": "1.6.6",
-    "electron-builder": "^2.6.0",
+    "electron-builder": "^18.6.2",
     "electron-mocha": "^3.1.1",
     "electron-packager": "^7.0.1",
     "eslint": "^3.16.1",

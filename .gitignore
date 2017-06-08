@@ -29,8 +29,8 @@ node_modules
 bower_components
 
 # Compiled Electron releases
+dist/
 release/
-etcher-release/
 
 # Certificates
 *.spc
