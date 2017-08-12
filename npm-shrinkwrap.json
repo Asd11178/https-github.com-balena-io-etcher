@@ -1088,7 +1088,7 @@
     },
     "debug": {
       "version": "2.6.0",
-      "from": "debug@>=2.2.0 <3.0.0",
+      "from": "https://registry.npmjs.org/debug/-/debug-2.6.0.tgz",
       "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.0.tgz"
     },
     "decamelize": {

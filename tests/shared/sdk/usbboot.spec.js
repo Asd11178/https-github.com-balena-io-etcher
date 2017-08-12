@@ -152,7 +152,7 @@ describe('SDK: usbboot', function () {
           m.chai.expect(device.name).to.equal('Broadcom BCM2708 Boot')
           m.chai.expect(device.interface).to.equal(0)
           m.chai.expect(device.outEndpoint).to.equal(1)
-          m.chai.expect(device.device).to.deep.equal(RASPBERRY_PI_ZERO_STUB)
+          m.chai.expect(device.instance).to.deep.equal(RASPBERRY_PI_ZERO_STUB)
         })
       })
     })
