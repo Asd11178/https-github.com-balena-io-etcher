@@ -69,6 +69,10 @@
     }
   }
 
+  .list-group-item-wrapper {
+    flex: 1;
+  }
+
   .list-group-item-heading {
     font-size: 13px;
   }
@@ -81,6 +85,29 @@
 
   .word-keep {
     word-break: keep-all;
+  }
+}
+
+$drive-icon: url(../../../assets/icon.png);
+
+.modal-drive-selector-modal {
+  .drive-icon {
+    width: 32px;
+    max-width: 32px;
+    height: 32px;
+    display: inline-block;
+    background-size: 32px;
+    background-repeat: no-repeat;
+    margin-right: 8px;
+    align-self: flex-start;
+
+    &.drive {
+      background-image: $drive-icon;
+    }
+  }
+
+  [disabled] > .drive-icon {
+    opacity: 0.5;
   }
 }
 

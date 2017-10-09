@@ -9,7 +9,9 @@
       ng-disabled="!modal.constraints.isDriveValid(drive, modal.state.getImage())"
       ng-dblclick="modal.selectDriveAndClose(drive)"
       ng-click="modal.toggleDrive(drive)">
-        <div>
+        <span class="drive-icon"
+          ng-class="drive.icon"></span>
+        <div class="list-group-item-wrapper">
           <h4 class="list-group-item-heading">{{ drive.description }} -
             <span class="word-keep">{{ drive.size | closestUnit }}</span>
           </h4>
