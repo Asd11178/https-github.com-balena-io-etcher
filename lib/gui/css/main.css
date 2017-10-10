@@ -6427,6 +6427,9 @@ body {
   align-self: flex-start; }
   .modal-drive-selector-modal .drive-icon.drive {
     background-image: url(../../../assets/icon.png); }
+  .modal-drive-selector-modal .drive-icon.amber {
+    background-image: linear-gradient(to bottom, #f6c839 0%, #ff8d00 100%);
+    border-radius: 50% 50%; }
 
 .modal-drive-selector-modal [disabled] > .drive-icon {
   opacity: 0.5; }

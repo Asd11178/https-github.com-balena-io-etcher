@@ -89,6 +89,7 @@
 }
 
 $drive-icon: url(../../../assets/icon.png);
+$amber-icon: linear-gradient(to bottom, #f6c839 0%, #ff8d00 100%);
 
 .modal-drive-selector-modal {
   .drive-icon {
@@ -103,6 +104,11 @@ $drive-icon: url(../../../assets/icon.png);
 
     &.drive {
       background-image: $drive-icon;
+    }
+
+    &.amber {
+      background-image: $amber-icon;
+      border-radius: 50% 50%;
     }
   }
 
