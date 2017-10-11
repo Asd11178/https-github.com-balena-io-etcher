@@ -11,14 +11,14 @@
       ng-click="modal.toggleDrive(drive)">
         <img class="list-group-item-section" alt="Drive device type logo"
           ng-if="drive.icon"
-          ng-src="./assets/device-types/{{drive.icon}}.svg"
+          ng-src="./assets/icons/{{drive.icon}}.svg"
           width="25"
           height="30">
         <div class="list-group-item-section list-group-item-section-expanded">
-          <h4 class="list-group-item-heading">{{ drive.description }} -
-            <span class="word-keep">{{ drive.size | closestUnit }}</span>
+          <h4 class="list-group-item-heading">{{ drive.description }}<span ng-if="drive.size"> -
+            <span class="word-keep">{{ drive.size | closestUnit }}</span></span>
           </h4>
-          <p class="list-group-item-text">{{ drive.displayName }}</p>
+          <p ng-if="drive.displayName" class="list-group-item-text">{{ drive.displayName }}</p>
 
           <footer class="list-group-item-footer">
 
