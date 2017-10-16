@@ -1,1 +1,1 @@
-console=serial0,115200 shell=after:usb    
+console=serial0,115200
