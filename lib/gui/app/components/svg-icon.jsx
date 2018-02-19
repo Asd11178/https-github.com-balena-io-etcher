@@ -84,15 +84,14 @@ class SVGIcon extends react.Component {
     const svgXml = svg && _.isNil(parserError) ? svg.outerHTML : ''
     const svgData = `data:image/svg+xml,${encodeURIComponent(svgXml)}`
 
-    return react.createElement('img', {
-      className: 'svg-icon',
-      style: {
-        width,
-        height
-      },
-      src: svgData,
-      disabled: this.props.disabled
-    })
+    return (
+      <img
+        className="svg-icon"
+        style={ { width, height } }
+        src: svgData,
+        disabled: this.props.disabled
+      />
+    )
   }
 
   /**
