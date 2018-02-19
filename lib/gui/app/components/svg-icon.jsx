@@ -88,8 +88,8 @@ class SVGIcon extends react.Component {
       <img
         className="svg-icon"
         style={ { width, height } }
-        src: svgData,
-        disabled: this.props.disabled
+        src={ svgData }
+        disabled={ this.props.disabled }
       />
     )
   }
