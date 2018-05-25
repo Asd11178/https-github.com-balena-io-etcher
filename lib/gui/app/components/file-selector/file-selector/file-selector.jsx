@@ -161,18 +161,22 @@ class UnstyledFileLink extends React.PureComponent {
     const icon = this.props.file.isDirectory ? 'faFolder' : 'faFileAlt'
 
     return (
-      <Flex
+      <rendition.Button
+        plaintext
         direction="column"
         alignItems="stretch"
         className={ this.props.className }
         onClick={ this.highlightFile }
-        onDoubleClick={ this.selectFile }>
+        onDoubleClick={ this.selectFile }
+        onTouchStart={ this.selectFile }
+        onTouchEnd={ this.selectFile }
+      >
         <Icon type={ icon } size="48px" />
         <span>
           { middleEllipsis(this.props.file.basename || '', FILENAME_CHAR_LIMIT_SHORT) }
         </span>
         <div>{ prettyBytes(this.props.file.size || 0) }</div>
-      </Flex>
+      </rendition.Button>
     )
   }
 
