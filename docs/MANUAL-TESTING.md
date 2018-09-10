@@ -4,16 +4,27 @@ Manual Testing
 This document describes a high-level script of manual tests to check for. We
 should aim to replace items on this list with automated Spectron test cases.
 
+[Windows 10 ISO]: https://www.microsoft.com/en-au/software-download/windows10ISO
+[ev3dev]: https://github.com/ev3dev/ev3dev/releases/latest
+[FreeDOS]: http://www.freedos.org/download/
+[FreeBSD]: https://www.freebsd.org/where.html
+[Guix System Distribution (GuixSD)]: https://www.gnu.org/software/guix/
+[Pine64]: https://github.com/bamarni/pi64/releases/latest
+[recalbox]: https://github.com/recalbox/recalbox-os/releases
+[NextCloudPi]: https://ownyourbits.com/nextcloudpi/
+[Hass.io]: https://github.com/home-assistant/hassio-build/releases
+[BeagleBone]: https://beagleboard.org/latest-images
+
 Image Selection
 ---------------
 
 - [ ] Cancel image selection dialog
 - [ ] Select an unbootable image (without a partition table), and expect a
   sensible warning
-- [ ] Attempt to select a ZIP archive with more than one image
-- [ ] Attempt to select a tar archive (with any compression method)
+- [ ] Attempt to select a ZIP archive with more than one image (i.e. an Android image)
+- [ ] Attempt to select a tar archive (with any compression method) ([NextCloudPi])
 - [ ] Change image selection
-- [ ] Select a Windows image, and expect a sensible warning
+- [ ] Select a Windows image, and expect a sensible warning ([Windows 10 ISO])
 
 Drive Selection
 ---------------
@@ -26,8 +37,8 @@ Drive Selection
 - [ ] Insert a too small drive and expect a warning
 - [ ] Put an image into a drive and attempt to flash the image to the drive
   that contains it
-- [ ] Attempt to flash a compressed image (for which we can get the
-  uncompressed size) into a drive that is big enough to hold the compressed
+- [ ] Attempt to flash a compressed image – for which Etcher can determine the
+  uncompressed size (i.e. .zip, .dmg, .xz) – to a drive that is big enough to hold the compressed
   image, but not big enough to hold the uncompressed version
 - [ ] Enable "Unsafe Mode" and attempt to select a system drive
 - [ ] Enable "Unsafe Mode", and if there is only one system drive (and no
@@ -39,17 +50,17 @@ Image Support
 Run the following tests with and without validation enabled:
 
 - [ ] Flash an uncompressed image
-- [ ] Flash a Bzip2 image
-- [ ] Flash a XZ image
-- [ ] Flash a ZIP image
+- [ ] Flash a Bzip2 image ([Hass.io])
+- [ ] Flash a XZ image ([FreeBSD], [recalbox], [Guix System Distribution (GuixSD)])
+- [ ] Flash a ZIP image ([Pine64], [FreeDOS])
 - [ ] Flash a GZ image
 - [ ] Flash a DMG image
 - [ ] Flash an image whose size is not a multiple of 512 bytes
 - [ ] Flash a compressed image whose size is not a multiple of 512 bytes
 - [ ] Flash an archive whose image size is not a multiple of 512 bytes
-- [ ] Flash an archive image containing a logo
-- [ ] Flash an archive image containing a blockmap file
-- [ ] Flash an archive image containing a manifest metadata file
+- [ ] Flash an archive image containing a logo ([ev3dev])
+- [ ] Flash an archive image containing a blockmap file ([ev3dev])
+- [ ] Flash an archive image containing a manifest metadata file ([ev3dev])
 
 Flashing Process
 ----------------
