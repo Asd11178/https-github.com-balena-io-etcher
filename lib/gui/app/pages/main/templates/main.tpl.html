@@ -44,11 +44,20 @@
 
       <div class="center-block">
         <svg-icon paths="[ '../../assets/drive.svg' ]"
-          disabled="main.shouldDriveStepBeDisabled()"></svg-icon>
+          disabled="main.shouldDriveStepBeDisabled"></svg-icon>
       </div>
 
       <div class="space-vertical-large">
-        <div ng-if="!main.selection.hasDrive() && drive.shouldShowDrivesButton()">
+
+        <drive-selector-button
+          has-drive="main.selection.hasDrive"
+          should-show-drives-button="drive.shouldShowDrivesButton"
+          disabled="main.shouldDriveStepBeDisabled"
+          >
+        </drive-selector-button>
+
+
+<!--       <div ng-if="!main.selection.hasDrive() && drive.shouldShowDrivesButton()">
 
           <div>
             <button class="button button-primary button-brick"
@@ -69,9 +78,9 @@
                 'text-warning': !main.selection.getSelectedDevices().length
               }"
               uib-tooltip="{{ drive.getDriveListLabel() }}">
-              <!-- middleEllipsis errors on undefined, therefore fallback to empty string -->
-              {{ drive.getDrivesTitle() | middleEllipsis:20 }}
-            </span>
+              <! middleEllipsis errors on undefined, therefore fallback to empty string -->
+      <!--        {{ drive.getDrivesTitle() | middleEllipsis:20 }} -->
+      <!--      </span>
             <span class="step-drive step-warning glyphicon glyphicon-exclamation-sign"
               uib-tooltip="{{ main.constraints.getListDriveImageCompatibilityStatuses(main.selection.getSelectedDrives(), main.selection.getImage())[0].message }}"
               ng-show="main.constraints.hasListDriveImageCompatibilityStatus(main.selection.getSelectedDrives(), main.selection.getImage())"></span>
@@ -86,7 +95,7 @@
               }"
               class="step-drive step-size">
               {{ drive.getDrivesSubtitle() }}
-            </span>
+            </span> -->
           </div>
         </div>
         <div ng-if="main.selection.getSelectedDevices().length > 1"
@@ -98,7 +107,7 @@
             uib-tooltip="{{ driveObj.description }} ({{ driveObj.displayName }})">
             {{ driveObj.description | middleEllipsis:14 }}
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
