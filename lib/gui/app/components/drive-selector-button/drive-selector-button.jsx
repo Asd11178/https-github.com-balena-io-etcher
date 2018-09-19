@@ -70,23 +70,10 @@ const StyledText = styled(Txt).attrs({
   className: 'step-image step-size'
 })``
 
-class DriveSelectorButton extends React.Component {
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      drive: ''
-    }
-  }
-
-  static getDerivedStateFromProps (props, state) {
-    state.drive = !props.hasDrive() && props.shouldShowDrivesButton()
-  }
-
+const DriveSelectorButton = props => {
 
   render () {
-    if (this.state.drive){
+    if (!props.hasDrive() && props.shouldShowDrivesButton()){
       return (
         <Provider>
           <StyledButton
@@ -94,7 +81,7 @@ class DriveSelectorButton extends React.Component {
             disabled={this.props.disabled()}
             // onClick={() => this.props.openImageSelector()}
           >
-            Select drive
+            SELECT DRIVE REACT
           </StyledButton>
         </Provider>
       )
@@ -126,19 +113,6 @@ class DriveSelectorButton extends React.Component {
       )
     }
   }
-}
-
-DriveSelectorButton.propTypes = {
-  hasDrive: propTypes.func,
-  shouldShowDrivesButton: propTypes.func,
-  disabled: propTypes.func,
-  // image: propTypes.func,
-  // showSelectedImageDetails: propTypes.func,
-  // getImageName: propTypes.func,
-  // getImageBasename: propTypes.func,
-  // reselectImage: propTypes.func,
-  // flashing: propTypes.func,
-  // getImageSize: propTypes.func,
 }
 
 module.exports = DriveSelectorButton

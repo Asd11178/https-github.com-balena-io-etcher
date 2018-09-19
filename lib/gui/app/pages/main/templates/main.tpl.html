@@ -57,7 +57,7 @@
         </drive-selector-button>
 
 
-<!--       <div ng-if="!main.selection.hasDrive() && drive.shouldShowDrivesButton()">
+       <div ng-if="!main.selection.hasDrive() && drive.shouldShowDrivesButton()">
 
           <div>
             <button class="button button-primary button-brick"
@@ -78,9 +78,9 @@
                 'text-warning': !main.selection.getSelectedDevices().length
               }"
               uib-tooltip="{{ drive.getDriveListLabel() }}">
-              <! middleEllipsis errors on undefined, therefore fallback to empty string -->
-      <!--        {{ drive.getDrivesTitle() | middleEllipsis:20 }} -->
-      <!--      </span>
+              <!-- middleEllipsis errors on undefined, therefore fallback to empty string -->
+              {{ drive.getDrivesTitle() | middleEllipsis:20 }}
+            </span>
             <span class="step-drive step-warning glyphicon glyphicon-exclamation-sign"
               uib-tooltip="{{ main.constraints.getListDriveImageCompatibilityStatuses(main.selection.getSelectedDrives(), main.selection.getImage())[0].message }}"
               ng-show="main.constraints.hasListDriveImageCompatibilityStatus(main.selection.getSelectedDrives(), main.selection.getImage())"></span>
@@ -107,7 +107,7 @@
             uib-tooltip="{{ driveObj.description }} ({{ driveObj.displayName }})">
             {{ driveObj.description | middleEllipsis:14 }}
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
