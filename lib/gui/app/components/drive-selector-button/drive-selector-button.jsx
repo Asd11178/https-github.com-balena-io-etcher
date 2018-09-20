@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 'use strict'
+
+'use strict'
 
 const React = require('react')
 const ReactDOM = require('react-dom')
@@ -22,97 +23,102 @@ const Color = require('color')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
-import styled, { ThemeProvider } from 'styled-components'
-import { Button, Txt, Box, Provider } from 'rendition'
+const shared = require('/./../../../../../lib/shared/units')
+const { Provider, Txt } = require('rendition')
+const { StepButton, StepNameButton, StepSelection,
+  DetailsText, ChangeButton } = require('./../../styled-components')
 
-import shared from '/./../../../../../lib/shared/units.js'
-import consts from './../../scss/main'
-import theme from './../../scss/modules/_theme'
+class DriveSelectorButton extends React.PureComponent {
 
-const StyledButton = styled(Button)`
-  width: 100%;
-  max-width: ${theme.colors.$btnMinWidth};
-  margin: auto;
-
-  &:disabled {
-    background-color: ${theme.colors.$paletteThemeDarkDisabledBackground};
-    color: ${theme.colors.$paletteThemeDarkDisabledForeground};
-    &:hover {
-      background-color: ${theme.colors.$paletteThemeDarkDisabledBackground};
-      color: ${theme.colors.$paletteThemeDarkDisabledForeground};
+  allDevices() {
+    let devices = []
+    if (this.props.howManyDeviceSelected > 1) {
+      this.props.selectedDevices.forEach(function(device){
+        let tooltip = device.description + '(' + device.displayName + ')'
+        devices.push(
+          <Txt key={device.device} tooltip={tooltip}>
+            { middleEllipsis(device.description, 14) }
+          </Txt>
+        )
+      })
     }
+    return devices
   }
 
-  overflow: hidden;
-`
-
-const DriveNameButton = styled(Button).attrs({
-  className: 'step-image step-name'
-})`
-  &:hover {
-    color: ${theme.colors.$paletteThemePrimaryForeground};
-  }
-
-  &:focus {
-    color: ${theme.colors.$paletteThemePrimaryForeground};
-  }
-
-  &:active {
-    color: ${theme.colors.$paletteThemePrimaryForeground};
-  }
-`
-
-const ChangeButton = styled(Button).attrs({
-  className: 'button button-link step-footer'
-})``
-
-const StyledText = styled(Txt).attrs({
-  className: 'step-image step-size'
-})``
-
-const DriveSelectorButton = props => {
-
-  render () {
-    if (!props.hasDrive() && props.shouldShowDrivesButton()){
+  render() {
+    if (this.props.hasDrive || !this.props.shouldShowDrivesButton) {
       return (
         <Provider>
-          <StyledButton
-            primary
-            disabled={this.props.disabled()}
-            // onClick={() => this.props.openImageSelector()}
-          >
-            SELECT DRIVE REACT
-          </StyledButton>
+          <StepSelection>
+              <StepNameButton
+                plaintext
+                disabled={this.props.disabled}
+                tooltip={this.props.driveListLabel}
+                warning={!this.props.howManyDeviceSelected}
+              >
+                { middleEllipsis(this.props.drivesTitle, 20) }
+                { this.props.hasCompatibilityStatus(this.props.drives(), this.props.image()) ?
+                  <Txt.span className='glyphicon glyphicon-exclamation-sign'
+                    ml='10px'
+                    tooltip={this.props.getCompatibilityStatuses(this.props.drives(),this.props.image())[0].message}
+                  />
+                : null
+                }
+              </StepNameButton>
+
+            <DetailsText>
+              {this.props.driveSize}
+            </DetailsText>
+            { this.props.flashing || !this.props.shouldShowDrivesButton ?
+              null
+              :
+              <ChangeButton
+                plaintext
+                onClick={this.props.reselectDrive}
+              >
+                Change
+              </ChangeButton>
+            }
+            <DetailsText>
+              {this.allDevices()}
+            </DetailsText>
+          </StepSelection>
         </Provider>
       )
     }
     else {
       return (
         <Provider>
-          <DriveNameButton
-            plaintext
-            // onClick={() => this.props.showSelectedImageDetails()}
-            // tooltip={this.props.getImageBasename}
-          >
-            //{ this.state.chosenImage}
-          </DriveNameButton>
-          <StyledText>
-            //{ this.state.imageSize}
-          </StyledText>
-          { this.props.flashing ?
-            null
-            :
-            <ChangeButton
-              plaintext
-              // onClick={() => this.props.reselectImage()}
+          <StepSelection>
+            <StepButton
+              primary
+              disabled={this.props.disabled}
+              onClick={this.props.openDriveSelector}
             >
-              Change
-            </ChangeButton>
-          }
+              Select drive react
+            </StepButton>
+          </StepSelection>
         </Provider>
       )
     }
   }
+}
+
+DriveSelectorButton.propTypes = {
+  hasDrive: propTypes.bool,
+  shouldShowDrivesButton: propTypes.bool,
+  disabled: propTypes.bool,
+  drivesTitle: propTypes.string,
+  driveListLabel: propTypes.string,
+  openDriveSelector: propTypes.func,
+  howManyDeviceSelected: propTypes.bool,
+  reselectDrive: propTypes.func,
+  driveSize: propTypes.string,
+  hasCompatibilityStatus: propTypes.func,
+  getCompatibilityStatuses: propTypes.func,
+  drives: propTypes.func,
+  image: propTypes.func,
+  selectedDevices: propTypes.array,
 }
 
 module.exports = DriveSelectorButton
