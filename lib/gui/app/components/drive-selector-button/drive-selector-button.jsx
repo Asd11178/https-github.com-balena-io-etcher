@@ -23,7 +23,6 @@ const Color = require('color')
 
 const middleEllipsis = require('./../../utils/middle-ellipsis')
 
-const shared = require('/./../../../../../lib/shared/units')
 const { Provider, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('./../../styled-components')
