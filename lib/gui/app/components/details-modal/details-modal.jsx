@@ -60,46 +60,61 @@ const CloseButton = styled(Button) `
   }
 `
 
-const DetailsModal = props => {
-  return (
-    <Provider>
-      <Modal
-        style={{padding: 0}}
-        titleElement={
-          <React.Fragment>
-            <ModalHeader>
-              <ModalTitle>{props.title}</ModalTitle>
-              <CloseButton
-                plaintext
-                onClick={props.callback}
-                align='left'
-              >
-              &times;
-              </CloseButton>
-            </ModalHeader>
-          </React.Fragment>
-        }
-        primaryButtonProps={{
-						position: 'absolute',
-            top: 0,
-            right: 0,
-            plaintext: true,
-            primary: false
-				}}
-        action=' '
-        done={props.callback}
-      >
-          <ModalBody>
-            <Txt> {props.details} </Txt>
-          </ModalBody>
-      </Modal>
-    </Provider>
-  )
+class DetailsModal extends React.Component {
+
+  renderDetails() {
+    let lines = []
+    this.props.details.forEach(function(line){
+      lines.push(
+        <Txt key={line}>
+          { line }
+        </Txt>
+      )
+    })
+    return lines
+  }
+
+  render() {
+    return (
+      <Provider>
+        <Modal
+          style={{padding: 0}}
+          titleElement={
+            <React.Fragment>
+              <ModalHeader>
+                <ModalTitle>{this.props.title}</ModalTitle>
+                <CloseButton
+                  plaintext
+                  onClick={this.props.callback}
+                  align='left'
+                >
+                &times;
+                </CloseButton>
+              </ModalHeader>
+            </React.Fragment>
+          }
+          primaryButtonProps={{
+  						position: 'absolute',
+              top: 0,
+              right: 0,
+              plaintext: true,
+              primary: false
+  				}}
+          action=' '
+          done={this.props.callback}
+        >
+            <ModalBody>
+              {this.renderDetails()}
+            </ModalBody>
+        </Modal>
+      </Provider>
+    )
+  }
 }
 
 DetailsModal.propTypes = {
   title: propTypes.string,
-  details: propTypes.string,
+  details: propTypes.array,
   callback: propTypes.func
 }
 
