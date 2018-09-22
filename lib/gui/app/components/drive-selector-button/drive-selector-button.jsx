@@ -110,7 +110,7 @@ DriveSelectorButton.propTypes = {
   drivesTitle: propTypes.string,
   driveListLabel: propTypes.string,
   openDriveSelector: propTypes.func,
-  howManyDeviceSelected: propTypes.bool,
+  howManyDeviceSelected: propTypes.number,
   reselectDrive: propTypes.func,
   driveSize: propTypes.string,
   hasCompatibilityStatus: propTypes.func,
