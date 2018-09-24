@@ -28,6 +28,7 @@ const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('./../../styled-components')
 
 const DetailsModal = require('./../details-modal/details-modal')
+const DriveSelectorReact = require('./../drive-selector-react/drive-selector-react')
 
 class DriveSelectorButton extends React.PureComponent {
 
@@ -35,7 +36,8 @@ class DriveSelectorButton extends React.PureComponent {
   super(props)
 
   this.state = {
-    show: false
+    show: false, 
+    showDriveSelector: true
   }
 }
 
@@ -119,10 +121,16 @@ class DriveSelectorButton extends React.PureComponent {
             <StepButton
               primary
               disabled={this.props.disabled}
-              onClick={this.props.openDriveSelector}
+              onClick={() => this.setState({ showDriveSelector: true })}
             >
               Select drive react
             </StepButton>
+            <Txt onClick={this.props.openDriveSelector}>Show old drive selector</Txt>
+            {this.state.showDriveSelector ? 
+              <DriveSelectorReact
+                callback={() => this.setState({ showDriveSelector: false })} />
+            : null
+            }
           </StepSelection>
         </Provider>
       )
