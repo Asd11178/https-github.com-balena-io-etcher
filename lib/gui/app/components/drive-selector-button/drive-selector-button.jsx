@@ -36,7 +36,7 @@ class DriveSelectorButton extends React.PureComponent {
   super(props)
 
   this.state = {
-    show: false, 
+    showDetailsModal: false, 
     showDriveSelector: true
   }
 }
@@ -103,7 +103,7 @@ class DriveSelectorButton extends React.PureComponent {
               {this.allDevicesFooter()}
             </DetailsText>
           </StepSelection>
-          {this.state.show ?
+          {this.state.showDetailsModal ?
             <DetailsModal
               title={'Selected Drivers'}
               details={this.selectedDevicesDetails()}
