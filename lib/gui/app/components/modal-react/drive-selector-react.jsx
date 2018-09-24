@@ -23,19 +23,32 @@ const Color = require('color')
 
 const middleEllipsis = require('../../utils/middle-ellipsis')
 
-const { Provider, Modal } = require('rendition')
+const { Provider, Modal, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('../../styled-components')
 
-class DriveSelectorReact extends React.PureComponent {
+const availableDrives = require('./../../models/available-drives')
+
+class DriveSelectorReact extends React.Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      availableDrives: availableDrives.getDrives()
+    }
+  }
 
   render() {
+    console.log(this.state.availableDrives)
+
     return(
       <Provider>
-        <Modal 
+        <Modal
           title='Select a drive'
-          done={this.props.callback}
-        ></Modal>
+          done={this.props.callback} >
+          <Txt> {this.state.availableDrives.length} </Txt>
+        </Modal>
       </Provider>
     )
   }

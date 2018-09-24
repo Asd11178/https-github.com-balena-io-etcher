@@ -27,36 +27,21 @@ const { Provider, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('./../../styled-components')
 
-<<<<<<< HEAD
 const DetailsModal = require('./../modal-react/details-modal')
 const DriveSelectorReact = require('../modal-react/drive-selector-react')
-=======
-const DriveSelectorReact = require('./../drive-selector-react/drive-selector-react')
->>>>>>> 17de71f2978cd8e2d7cc9d18566ef1de349068c9
 
 class DriveSelectorButton extends React.PureComponent {
 
   constructor(props) {
-<<<<<<< HEAD
   super(props)
 
   this.state = {
-    showDetailsModal: false, 
+    showDetailsModal: false,
     showDriveSelector: false
   }
 }
 
   allDevicesFooter() {
-=======
-    super(props)
-
-    this.state = {
-      showDriveSelector: false
-    }
-  }
-
-  allDevices() {
->>>>>>> 17de71f2978cd8e2d7cc9d18566ef1de349068c9
     let devices = []
     if (this.props.howManyDeviceSelected > 1) {
       this.props.selectedDevices.forEach(function(device){
@@ -80,7 +65,7 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   render() {
-    if (this.props.hasDrive || !this.props.shouldShowDrivesButton) {
+    if (false /*this.props.hasDrive || !this.props.shouldShowDrivesButton*/) {
       return (
         <Provider>
           <StepSelection>
@@ -135,13 +120,13 @@ class DriveSelectorButton extends React.PureComponent {
           <StepSelection>
             <StepButton
               primary
-              disabled={this.props.disabled}
+              /*disabled={this.props.disabled}*/
               onClick={() => this.setState({ showDriveSelector: true })}
             >
               Select drive react
             </StepButton>
             <Txt onClick={this.props.openDriveSelector}>Show old drive selector</Txt>
-            {this.state.showDriveSelector ? 
+            {this.state.showDriveSelector ?
               <DriveSelectorReact
                 callback={() => this.setState({ showDriveSelector: false })} />
             : null
