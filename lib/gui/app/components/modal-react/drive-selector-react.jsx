@@ -21,11 +21,11 @@ const ReactDOM = require('react-dom')
 const propTypes = require('prop-types')
 const Color = require('color')
 
-const middleEllipsis = require('./../../utils/middle-ellipsis')
+const middleEllipsis = require('../../utils/middle-ellipsis')
 
 const { Provider, Modal } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
-  DetailsText, ChangeButton } = require('./../../styled-components')
+  DetailsText, ChangeButton } = require('../../styled-components')
 
 class DriveSelectorReact extends React.PureComponent {
 

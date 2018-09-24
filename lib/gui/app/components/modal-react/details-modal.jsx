@@ -19,46 +19,9 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 const propTypes = require('prop-types')
-const styled = require('styled-components').default
-const { Provider, Button, Modal, Flex, Txt, Box } = require('rendition')
+const { Provider, Modal, Txt } = require('rendition')
 
-const middleEllipsis = require('./../../utils/middle-ellipsis')
-
-const shared = require('/./../../../../../lib/shared/units')
-const { colors } = require('./../../theme')
-
-const ModalHeader = styled(Flex) `
-  text-align: left;
-  align-items: baseline;
-  font-size: 12px;
-  color: ${colors.light.soft.foreground};
-  padding: 11px 20px;
-  border-bottom: 1.5px solid ${colors.light.soft.background};
-`
-
-const ModalTitle = styled(Txt) `
-  flex-grow: 1;
-`
-
-const ModalBody = styled(Box) `
-  padding: 20px;
-  max-height: 250px;
-  word-wrap: break-word;
-  color: ${colors.light.foreground};
-  background-color: ${colors.light.soft.background};
-  margin: -35px 15px -35px 15px;
-`
-
-const CloseButton = styled(Button) `
-  font-size: 19.5px;
-  font-weight: bold;
-  line-height: 1
-  color: ${colors.light.soft.foreground};;
-  cursor: pointer;
-  &:hover {
-    color: ${colors.dark.background};
-  }
-`
+const { ModalHeader, ModalTitle, CloseButton, ModalBody} = require('./modal-styles')
 
 class DetailsModal extends React.Component {
 

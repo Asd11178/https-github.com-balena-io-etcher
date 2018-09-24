@@ -27,8 +27,8 @@ const { Provider, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('./../../styled-components')
 
-const DetailsModal = require('./../details-modal/details-modal')
-const DriveSelectorReact = require('./../drive-selector-react/drive-selector-react')
+const DetailsModal = require('./../modal-react/details-modal')
+const DriveSelectorReact = require('../modal-react/drive-selector-react')
 
 class DriveSelectorButton extends React.PureComponent {
 
@@ -37,7 +37,7 @@ class DriveSelectorButton extends React.PureComponent {
 
   this.state = {
     showDetailsModal: false, 
-    showDriveSelector: true
+    showDriveSelector: false
   }
 }
 
@@ -74,7 +74,7 @@ class DriveSelectorButton extends React.PureComponent {
                 disabled={this.props.disabled}
                 tooltip={this.props.driveListLabel}
                 warning={!this.props.howManyDeviceSelected}
-                onClick={() => this.setState({show: true})}
+                onClick={() => this.setState({ showDetailsModal: true})}
               >
                 { middleEllipsis(this.props.drivesTitle, 20) }
                 { this.props.hasCompatibilityStatus(this.props.drives(), this.props.image()) ?
@@ -107,7 +107,7 @@ class DriveSelectorButton extends React.PureComponent {
             <DetailsModal
               title={'Selected Drivers'}
               details={this.selectedDevicesDetails()}
-              callback={() => this.setState({ show: false })}
+              callback={() => this.setState({ showDetailsModal: false })}
             />
           : null
           }
