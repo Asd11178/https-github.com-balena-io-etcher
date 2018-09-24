@@ -27,7 +27,17 @@ const { Provider, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('./../../styled-components')
 
+const DriveSelectorReact = require('./../drive-selector-react/drive-selector-react')
+
 class DriveSelectorButton extends React.PureComponent {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showDriveSelector: false
+    }
+  }
 
   allDevices() {
     let devices = []
@@ -92,10 +102,16 @@ class DriveSelectorButton extends React.PureComponent {
             <StepButton
               primary
               disabled={this.props.disabled}
-              onClick={this.props.openDriveSelector}
+              onClick={() => this.setState({ showDriveSelector: true })}
             >
               Select drive react
             </StepButton>
+            <Txt onClick={this.props.openDriveSelector}>Show old drive selector</Txt>
+            {this.state.showDriveSelector ? 
+              <DriveSelectorReact
+                callback={() => this.setState({ showDriveSelector: false })} />
+            : null
+            }
           </StepSelection>
         </Provider>
       )
