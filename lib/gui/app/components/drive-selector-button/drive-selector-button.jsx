@@ -27,12 +27,17 @@ const { Provider, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('./../../styled-components')
 
+<<<<<<< HEAD
 const DetailsModal = require('./../modal-react/details-modal')
 const DriveSelectorReact = require('../modal-react/drive-selector-react')
+=======
+const DriveSelectorReact = require('./../drive-selector-react/drive-selector-react')
+>>>>>>> 17de71f2978cd8e2d7cc9d18566ef1de349068c9
 
 class DriveSelectorButton extends React.PureComponent {
 
   constructor(props) {
+<<<<<<< HEAD
   super(props)
 
   this.state = {
@@ -42,6 +47,16 @@ class DriveSelectorButton extends React.PureComponent {
 }
 
   allDevicesFooter() {
+=======
+    super(props)
+
+    this.state = {
+      showDriveSelector: false
+    }
+  }
+
+  allDevices() {
+>>>>>>> 17de71f2978cd8e2d7cc9d18566ef1de349068c9
     let devices = []
     if (this.props.howManyDeviceSelected > 1) {
       this.props.selectedDevices.forEach(function(device){
