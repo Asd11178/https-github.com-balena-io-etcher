@@ -28,6 +28,7 @@ const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('../../styled-components')
 
 const availableDrives = require('./../../models/available-drives')
+const { ModalHeader, ModalTitle, CloseButton, ModalBody} = require('./modal-styles')
 
 class DriveSelectorReact extends React.Component {
 
@@ -35,19 +36,53 @@ class DriveSelectorReact extends React.Component {
     super(props)
 
     this.state = {
-      availableDrives: availableDrives.getDrives()
+      availableDrives: 0
     }
   }
 
-  render() {
-    console.log(this.state.availableDrives)
+  componentDidMount () {
+    let checkDrives = availableDrives.getDrives()
 
+    this.timer = setInterval(() => {
+      console.log('checking!')
+      this.setState({ availableDrives: checkDrives })
+    }, 500);
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.timer)
+  }
+
+  render() {
+    console.log(this.state.availableDrives.length)
     return(
       <Provider>
         <Modal
-          title='Select a drive'
-          done={this.props.callback} >
-          <Txt> {this.state.availableDrives.length} </Txt>
+          style={{padding: 0}}
+          titleElement={
+            <React.Fragment>
+              <ModalHeader>
+                <ModalTitle>'Select a drive'</ModalTitle>
+                <CloseButton
+                  plaintext
+                  onClick={this.props.callback}
+                  align='left'
+                >
+                &times;
+                </CloseButton>
+              </ModalHeader>
+            </React.Fragment>
+          }
+          primaryButtonProps={{
+            margin: '15px',
+            warning: true,
+            primary: false,
+            width: '100%'
+  				}}
+          action='Continue'
+          done={this.props.callback}
+        >
+            {this.state.availableDrives.length}
         </Modal>
       </Provider>
     )

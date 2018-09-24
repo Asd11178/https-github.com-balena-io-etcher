@@ -57,9 +57,6 @@ class DetailsModal extends React.Component {
             </React.Fragment>
           }
           primaryButtonProps={{
-  						position: 'absolute',
-              top: 0,
-              right: 0,
               plaintext: true,
               primary: false
   				}}
