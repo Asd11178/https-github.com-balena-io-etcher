@@ -23,12 +23,19 @@ const Color = require('color')
 
 const middleEllipsis = require('../../utils/middle-ellipsis')
 
-const { Provider, Modal, Txt } = require('rendition')
-const { StepButton, StepNameButton, StepSelection,
-  DetailsText, ChangeButton } = require('../../styled-components')
+const { Provider, Modal, Txt, Heading } = require('rendition')
+const {
+  ModalHeader,
+  ModalTitle,
+  CloseButton,
+  ModalBody,
+  DeviceListElem,
+  DeviceList
+} = require('./modal-styles')
 
 const availableDrives = require('./../../models/available-drives')
-const { ModalHeader, ModalTitle, CloseButton, ModalBody} = require('./modal-styles')
+const { colors } = require('./../../theme')
+const shared = require('/./../../../../../lib/shared/units')
 
 class DriveSelectorReact extends React.Component {
 
@@ -36,16 +43,19 @@ class DriveSelectorReact extends React.Component {
     super(props)
 
     this.state = {
-      availableDrives: 0
+      availableDrives: availableDrives.getDrives()
     }
   }
 
   componentDidMount () {
-    let checkDrives = availableDrives.getDrives()
-
     this.timer = setInterval(() => {
-      console.log('checking!')
-      this.setState({ availableDrives: checkDrives })
+      let checkDrives = availableDrives.getDrives()
+      if (this.state.availableDrives !== checkDrives){    //TODO: if doesn't work
+        console.log('different')//this.setState({ availableDrives: checkDrives })
+      }
+      else {
+        console.log('same')
+      }
     }, 500);
   }
 
@@ -53,12 +63,41 @@ class DriveSelectorReact extends React.Component {
     clearInterval(this.timer)
   }
 
+  renderDrivesList() {
+    let list = []
+    this.state.availableDrives.forEach(function(drive) {
+      list.push(
+        <Provider key={drive.device}>
+          <DeviceListElem>
+            <Heading.h6
+            color='#666'
+            align='left'
+            >
+            {drive.description}{' '}-{' '}{shared.bytesToClosestUnit(drive.size)}
+            </Heading.h6>
+            <Txt
+            color='#b3b3b3'
+            size='11px'
+            align='left'
+            style={{padding: 0}}
+            >
+            {drive.device}
+            </Txt>
+          </DeviceListElem>
+        </Provider>
+      )
+    })
+    return list
+  }
+
   render() {
-    console.log(this.state.availableDrives.length)
+    console.log(this.state.availableDrives)
     return(
       <Provider>
         <Modal
-          style={{padding: 0}}
+          width='315px'
+          height='320px'
+          style={{padding: '0 15px 15px 15px'}}
           titleElement={
             <React.Fragment>
               <ModalHeader>
@@ -67,6 +106,7 @@ class DriveSelectorReact extends React.Component {
                   plaintext
                   onClick={this.props.callback}
                   align='left'
+                  mr='15px'
                 >
                 &times;
                 </CloseButton>
@@ -74,15 +114,16 @@ class DriveSelectorReact extends React.Component {
             </React.Fragment>
           }
           primaryButtonProps={{
-            margin: '15px',
             warning: true,
             primary: false,
             width: '100%'
-  				}}
+          }}
           action='Continue'
           done={this.props.callback}
         >
-            {this.state.availableDrives.length}
+          <DeviceList>
+            {this.renderDrivesList()}
+          </DeviceList>
         </Modal>
       </Provider>
     )
