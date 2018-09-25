@@ -116,7 +116,7 @@ class DriveSelectorReact extends React.Component {
           primaryButtonProps={{
             warning: true,
             primary: false,
-            width: '100%'
+            width: '100%',
           }}
           action='Continue'
           done={this.props.callback}

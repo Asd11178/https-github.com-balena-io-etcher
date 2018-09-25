@@ -125,7 +125,6 @@ class DriveSelectorButton extends React.PureComponent {
             >
               Select drive react
             </StepButton>
-            <Txt onClick={this.props.openDriveSelector}>Show old drive selector</Txt>
             {this.state.showDriveSelector ?
               <DriveSelectorReact
                 callback={() => this.setState({ showDriveSelector: false })} />
