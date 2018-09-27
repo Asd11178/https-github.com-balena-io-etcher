@@ -49,22 +49,24 @@ const DeviceList = styled(Box)`
 `
 
 const Tick = styled(Txt.span) `
-  font-size: 21px;
-  color: ${colors.dark.soft.foreground};
+  font-size: 12px;
+  border: 2px solid;
+  border-radius: 50%;
+  padding: 3px;
 
-  &:[disabled] {
-    color: ${colors.dark.soft.foreground};
-    background-color: transparent;
+  border-color: ${(props) => { return props.success ?
+    colors.success.foreground :
+    props.error ? colors.danger.foreground : colors.light.soft.foreground}
   }
 
-  &:[success=true] {
-    color: ${colors.success.foreground};
-    background-color: ${colors.success.background};
+  background-color: ${(props) => { return props.success ?
+    colors.success.background :
+    props.error ? colors.danger.background : colors.dark.foreground}
   }
 
-  &:[error=true] {
-    color: ${colors.danger.foreground};
-    background-color: ${colors.danger.background};
+  color: ${(props) => { return props.success ?
+    colors.success.foreground :
+    props.error ? colors.danger.foreground : colors.light.soft.foreground}
   }
 
 `
@@ -119,7 +121,7 @@ class DriveSelectorReact extends React.Component {
                   {drive.device}
                 </Txt>
               </Flex>
-              <Tick className="glyphicon glyphicon-ok-circle" />
+              <Tick error className="glyphicon glyphicon-ok" />
             </Flex>
           </DeviceListElem>
         </Provider>
