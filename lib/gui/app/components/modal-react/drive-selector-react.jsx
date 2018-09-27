@@ -23,19 +23,51 @@ const Color = require('color')
 
 const middleEllipsis = require('../../utils/middle-ellipsis')
 
-const { Provider, Modal, Txt, Heading } = require('rendition')
+const { Provider, Modal, Txt, Heading, Box, Flex } = require('rendition')
 const {
   ModalHeader,
   ModalTitle,
   CloseButton,
   ModalBody,
-  DeviceListElem,
-  DeviceList
 } = require('./modal-styles')
+
+const styled = require('styled-components').default
 
 const availableDrives = require('./../../models/available-drives')
 const { colors } = require('./../../theme')
 const shared = require('/./../../../../../lib/shared/units')
+
+const DeviceListElem = styled(Box) `
+  font-size: 12px;
+  padding: 11px 0;
+  border-bottom: 1.5px solid ${colors.light.soft.background};
+  width: 100%;
+`
+
+const DeviceList = styled(Box)`
+  margin: -50px 15px -35px 15px;
+`
+
+const Tick = styled(Txt.span) `
+  font-size: 21px;
+  color: ${colors.dark.soft.foreground};
+
+  &:[disabled] {
+    color: ${colors.dark.soft.foreground};
+    background-color: transparent;
+  }
+
+  &:[success=true] {
+    color: ${colors.success.foreground};
+    background-color: ${colors.success.background};
+  }
+
+  &:[error=true] {
+    color: ${colors.danger.foreground};
+    background-color: ${colors.danger.background};
+  }
+
+`
 
 class DriveSelectorReact extends React.Component {
 
@@ -64,31 +96,35 @@ class DriveSelectorReact extends React.Component {
   }
 
   renderDrivesList() {
-    let list = []
-    this.state.availableDrives.forEach(function(drive) {
-      list.push(
+    return this.state.availableDrives.map((drive) =>
         <Provider key={drive.device}>
           <DeviceListElem>
-            <Heading.h6
-            color='#666'
-            align='left'
+            <Flex flexDirection='row'
+              justify='space-between'
+              style={{ alignItems: 'center'}}
             >
-            {drive.description}{' '}-{' '}{shared.bytesToClosestUnit(drive.size)}
-            </Heading.h6>
-            <Txt
-            color='#b3b3b3'
-            size='11px'
-            align='left'
-            style={{padding: 0}}
-            >
-            {drive.device}
-            </Txt>
+              <Flex flexDirection='column'>
+                <Heading.h6
+                  color='#666'
+                  align='left'
+                >
+                  {drive.description}{' '}-{' '}{shared.bytesToClosestUnit(drive.size)}
+                </Heading.h6>
+                <Txt
+                  color='#b3b3b3'
+                  size='11px'
+                  align='left'
+                  style={{padding: 0}}
+                >
+                  {drive.device}
+                </Txt>
+              </Flex>
+              <Tick className="glyphicon glyphicon-ok-circle" />
+            </Flex>
           </DeviceListElem>
         </Provider>
       )
-    })
-    return list
-  }
+    }
 
   render() {
     console.log(this.state.availableDrives)
@@ -97,7 +133,7 @@ class DriveSelectorReact extends React.Component {
         <Modal
           width='315px'
           height='320px'
-          style={{padding: '0 15px 15px 15px'}}
+          style={{padding: '0 10px 15px 15px'}}
           titleElement={
             <React.Fragment>
               <ModalHeader>
@@ -114,9 +150,9 @@ class DriveSelectorReact extends React.Component {
             </React.Fragment>
           }
           primaryButtonProps={{
-            warning: true,
-            primary: false,
             width: '100%',
+            disabled: true,
+
           }}
           action='Continue'
           done={this.props.callback}

@@ -33,35 +33,32 @@ const DriveSelectorReact = require('../modal-react/drive-selector-react')
 class DriveSelectorButton extends React.PureComponent {
 
   constructor(props) {
-  super(props)
+    super(props)
 
-  this.state = {
-    showDetailsModal: false,
-    showDriveSelector: false
+    this.state = {
+      showDetailsModal: false,
+      showDriveSelector: false
+    }
   }
-}
 
   allDevicesFooter() {
-    let devices = []
     if (this.props.howManyDeviceSelected > 1) {
-      this.props.selectedDevices.forEach(function(device){
-        let tooltip = device.description + '(' + device.displayName + ')'
-        devices.push(
-          <Txt key={device.device} tooltip={tooltip}>
-            { middleEllipsis(device.description, 14) }
-          </Txt>
-        )
-      })
+      return this.props.selectedDevices.map((device) =>
+        <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
+          { middleEllipsis(device.description, 14) }
+        </Txt>
+       )
     }
-    return devices
   }
 
   selectedDevicesDetails() {
-    let details = []
-    this.props.selectedDevices.forEach(function(device){
-      details.push(device.description + '(' + device.displayName + ')')
-    })
-    return details
+    return this.props.selectedDevices.map((device) =>
+      ({
+        name: device.description || device.displayName,
+        size: shared.bytesToClosestUnit(device.size),
+        path: device.device
+      })
+    )
   }
 
   render() {
@@ -78,7 +75,7 @@ class DriveSelectorButton extends React.PureComponent {
               >
                 { middleEllipsis(this.props.drivesTitle, 20) }
                 { this.props.hasCompatibilityStatus(this.props.drives(), this.props.image()) ?
-                  <Txt.span className='glyphicon glyphicon-exclamation-sign'
+                  <Txt.span className='glyphicon glyphicon-alert'
                     ml='10px'
                     tooltip={this.props.getCompatibilityStatuses(this.props.drives(),this.props.image())[0].message}
                   />
@@ -125,6 +122,7 @@ class DriveSelectorButton extends React.PureComponent {
             >
               Select drive react
             </StepButton>
+            <Txt color="white" onClick={this.props.openDriveSelector}>Show old selector</Txt>
             {this.state.showDriveSelector ?
               <DriveSelectorReact
                 callback={() => this.setState({ showDriveSelector: false })} />
@@ -152,6 +150,7 @@ DriveSelectorButton.propTypes = {
   drives: propTypes.func,
   image: propTypes.func,
   selectedDevices: propTypes.array,
+  openDriveSelector: propTypes.func
 }
 
 module.exports = DriveSelectorButton
