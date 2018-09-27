@@ -34,6 +34,8 @@ const {
 const styled = require('styled-components').default
 
 const availableDrives = require('./../../models/available-drives')
+const selectionState = require('./../../models/selection-state')
+
 const { colors } = require('./../../theme')
 const shared = require('/./../../../../../lib/shared/units')
 
@@ -42,6 +44,7 @@ const DeviceListElem = styled(Box) `
   padding: 11px 0;
   border-bottom: 1.5px solid ${colors.light.soft.background};
   width: 100%;
+  cursor: pointer;
 `
 
 const DeviceList = styled(Box)`
@@ -97,10 +100,15 @@ class DriveSelectorReact extends React.Component {
     clearInterval(this.timer)
   }
 
+  onModalCancel () {
+    selectionState.deselectAllDrives()
+    this.props.callback()
+  }
+
   renderDrivesList() {
-    return this.state.availableDrives.map((drive) =>
+    return availableDrives.getDrives().map((drive) =>
         <Provider key={drive.device}>
-          <DeviceListElem>
+          <DeviceListElem onClick={() => selectionState.toggleDrive(drive.device)}>
             <Flex flexDirection='row'
               justify='space-between'
               style={{ alignItems: 'center'}}
@@ -121,7 +129,7 @@ class DriveSelectorReact extends React.Component {
                   {drive.device}
                 </Txt>
               </Flex>
-              <Tick error className="glyphicon glyphicon-ok" />
+              <Tick success={selectionState.isDriveSelected(drive.device)} className="glyphicon glyphicon-ok" />
             </Flex>
           </DeviceListElem>
         </Provider>
@@ -129,7 +137,7 @@ class DriveSelectorReact extends React.Component {
     }
 
   render() {
-    console.log(this.state.availableDrives)
+    console.log(availableDrives.getDrives())
     return(
       <Provider>
         <Modal
@@ -142,7 +150,7 @@ class DriveSelectorReact extends React.Component {
                 <ModalTitle>'Select a drive'</ModalTitle>
                 <CloseButton
                   plaintext
-                  onClick={this.props.callback}
+                  onClick={this.onModalCancel}
                   align='left'
                   mr='15px'
                 >
@@ -153,11 +161,11 @@ class DriveSelectorReact extends React.Component {
           }
           primaryButtonProps={{
             width: '100%',
-            disabled: true,
+            disabled: !selectionState.hasDrive(),
 
           }}
           action='Continue'
-          done={this.props.callback}
+          done={() => this.props.callback(selectionState.getSelectedDevices())}
         >
           <DeviceList>
             {this.renderDrivesList()}
