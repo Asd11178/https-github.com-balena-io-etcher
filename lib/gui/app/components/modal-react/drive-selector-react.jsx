@@ -88,10 +88,10 @@ class DriveSelectorReact extends React.Component {
     this.timer = setInterval(() => {
       let checkDrives = availableDrives.getDrives()
       if (this.state.availableDrives !== checkDrives){    //TODO: if doesn't work
-        console.log('different')//this.setState({ availableDrives: checkDrives })
+      //  console.log('different')//this.setState({ availableDrives: checkDrives })
       }
       else {
-        console.log('same')
+      //  console.log('same')
       }
     }, 500);
   }
@@ -100,7 +100,7 @@ class DriveSelectorReact extends React.Component {
     clearInterval(this.timer)
   }
 
-  onModalCancel () {
+  onModalCancel = () => {
     selectionState.deselectAllDrives()
     this.props.callback()
   }
@@ -137,7 +137,6 @@ class DriveSelectorReact extends React.Component {
     }
 
   render() {
-    console.log(availableDrives.getDrives())
     return(
       <Provider>
         <Modal
@@ -165,7 +164,7 @@ class DriveSelectorReact extends React.Component {
 
           }}
           action='Continue'
-          done={() => this.props.callback(selectionState.getSelectedDevices())}
+          done={this.props.callback}
         >
           <DeviceList>
             {this.renderDrivesList()}

@@ -30,6 +30,8 @@ const { StepButton, StepNameButton, StepSelection,
 const DetailsModal = require('./../modal-react/details-modal')
 const DriveSelectorReact = require('../modal-react/drive-selector-react')
 
+const selectionState = require('./../../models/selection-state')
+
 class DriveSelectorButton extends React.PureComponent {
 
   constructor(props) {
@@ -42,17 +44,15 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   allDevicesFooter() {
-    if (this.props.howManyDeviceSelected > 1) {
-      return this.props.selectedDevices.map((device) =>
-        <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
-          { middleEllipsis(device.description, 14) }
-        </Txt>
-       )
-    }
+    return selectionState.getSelectedDrives().map((device) =>
+      <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
+        { middleEllipsis(device.description, 14) }
+      </Txt>
+    )
   }
 
   selectedDevicesDetails() {
-    return this.props.selectedDevices.map((device) =>
+    return selectionState.getSelectedDrives().map((device) =>
       ({
         name: device.description || device.displayName,
         size: shared.bytesToClosestUnit(device.size),
@@ -62,7 +62,7 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   render() {
-    if (false /*this.props.hasDrive || !this.props.shouldShowDrivesButton*/) {
+    if (selectionState.hasDrive() || !this.props.shouldShowDrivesButton) {
       return (
         <Provider>
           <StepSelection>
@@ -70,7 +70,7 @@ class DriveSelectorButton extends React.PureComponent {
                 plaintext
                 disabled={this.props.disabled}
                 tooltip={this.props.driveListLabel}
-                warning={!this.props.howManyDeviceSelected}
+                warning={!selectionState.hasDrive()}
                 onClick={() => this.setState({ showDetailsModal: true})}
               >
                 { middleEllipsis(this.props.drivesTitle, 20) }
@@ -91,13 +91,17 @@ class DriveSelectorButton extends React.PureComponent {
               :
               <ChangeButton
                 plaintext
-                onClick={this.props.reselectDrive}
+                onClick={() => this.setState({ showDriveSelector: true })}
               >
                 Change
               </ChangeButton>
             }
             <DetailsText>
-              {this.allDevicesFooter()}
+              {
+                selectionState.getSelectedDrives().length > 1 ?
+                ( this.allDevicesFooter() )
+                : null
+              }
             </DetailsText>
           </StepSelection>
           {this.state.showDetailsModal ?
@@ -106,6 +110,11 @@ class DriveSelectorButton extends React.PureComponent {
               details={this.selectedDevicesDetails()}
               callback={() => this.setState({ showDetailsModal: false })}
             />
+          : null
+          }
+          {this.state.showDriveSelector ?
+            <DriveSelectorReact
+              callback={() => this.setState({ showDriveSelector: false })} />
           : null
           }
         </Provider>
