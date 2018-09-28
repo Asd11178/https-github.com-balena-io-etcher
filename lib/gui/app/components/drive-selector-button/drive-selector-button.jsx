@@ -31,6 +31,7 @@ const DetailsModal = require('./../modal-react/details-modal')
 const DriveSelectorReact = require('../modal-react/drive-selector-react')
 
 const selectionState = require('./../../models/selection-state')
+const shared = require('/./../../../../../lib/shared/units')
 
 class DriveSelectorButton extends React.PureComponent {
 
@@ -106,7 +107,7 @@ class DriveSelectorButton extends React.PureComponent {
           </StepSelection>
           {this.state.showDetailsModal ?
             <DetailsModal
-              title={'Selected Drivers'}
+              title={'SELECTED DRIVERS'}
               details={this.selectedDevicesDetails()}
               callback={() => this.setState({ showDetailsModal: false })}
             />
@@ -126,7 +127,7 @@ class DriveSelectorButton extends React.PureComponent {
           <StepSelection>
             <StepButton
               primary
-              /*disabled={this.props.disabled}*/
+              disabled={this.props.disabled}
               onClick={() => this.setState({ showDriveSelector: true })}
             >
               Select drive react

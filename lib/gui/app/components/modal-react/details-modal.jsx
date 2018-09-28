@@ -19,48 +19,42 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 const propTypes = require('prop-types')
-const { Provider, Modal, Txt } = require('rendition')
+const { Provider, Modal, Txt, Box } = require('rendition')
 
-const { ModalHeader, ModalTitle, CloseButton, ModalBody} = require('./modal-styles')
+const { ModalHeader, CloseButton, ModalBody} = require('./modal-styles')
+const { colors } = require('./../../theme')
 
 class DetailsModal extends React.Component {
 
   renderDetails() {
-    let lines = []
-    this.props.details.forEach(function(line){
-      lines.push(
-        <Txt key={line}>
-          { line }
-        </Txt>
-      )
-    })
-    return lines
+    console.log(this.props.details)
+    return this.props.details.map((line) =>
+      <Box key={line.path} mb='10px'>
+        <Txt bold color={colors.light.foreground} align='left'> {line.name} - {line.size} </Txt>
+        <Txt bold color={colors.default.foreground} align='left'> {line.path} </Txt>
+      </Box>
+    )
   }
 
   render() {
     return (
       <Provider>
         <Modal
-          style={{padding: 0}}
+          style={{padding: '0 10px 15px 15px'}}
+          width='400px'
           titleElement={
             <React.Fragment>
               <ModalHeader>
-                <ModalTitle>{this.props.title}</ModalTitle>
+                <Txt>{this.props.title}</Txt>
                 <CloseButton
                   plaintext
                   onClick={this.props.callback}
-                  align='left'
                 >
                 &times;
                 </CloseButton>
               </ModalHeader>
             </React.Fragment>
           }
-          primaryButtonProps={{
-              plaintext: true,
-              primary: false
-  				}}
-          action=' '
           done={this.props.callback}
         >
             <ModalBody>

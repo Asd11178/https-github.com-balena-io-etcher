@@ -26,7 +26,6 @@ const middleEllipsis = require('../../utils/middle-ellipsis')
 const { Provider, Modal, Txt, Heading, Box, Flex } = require('rendition')
 const {
   ModalHeader,
-  ModalTitle,
   CloseButton,
   ModalBody,
 } = require('./modal-styles')
@@ -87,7 +86,7 @@ class DriveSelectorReact extends React.Component {
   componentDidMount () {
     this.timer = setInterval(() => {
       let checkDrives = availableDrives.getDrives()
-      if (this.state.availableDrives !== checkDrives){    //TODO: if doesn't work
+      if (this.state.availableDrives == checkDrives){    //TODO: if doesn't work
       //  console.log('different')//this.setState({ availableDrives: checkDrives })
       }
       else {
@@ -164,18 +163,15 @@ class DriveSelectorReact extends React.Component {
     return(
       <Provider>
         <Modal
-          width='315px'
-          height='320px'
+          width='400px'
           style={{padding: '0 10px 15px 15px'}}
           titleElement={
             <React.Fragment>
               <ModalHeader>
-                <ModalTitle>'Select a drive'</ModalTitle>
+                <Txt>SELECT DRIVERS</Txt>
                 <CloseButton
                   plaintext
                   onClick={this.onModalCancel}
-                  align='left'
-                  mr='15px'
                 >
                 &times;
                 </CloseButton>
@@ -183,9 +179,7 @@ class DriveSelectorReact extends React.Component {
             </React.Fragment>
           }
           primaryButtonProps={{
-            width: '100%',
             disabled: !selectionState.hasDrive(),
-
           }}
           action='Continue'
           done={this.props.callback}
