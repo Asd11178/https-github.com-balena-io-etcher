@@ -106,7 +106,8 @@ class DriveSelectorReact extends React.Component {
   }
 
   renderDrivesList() {
-    return availableDrives.getDrives().map((drive) =>
+    return availableDrives.hasAvailableDrives() ?
+      availableDrives.getDrives().map((drive) =>
         <Provider key={drive.device}>
           <DeviceListElem onClick={() => selectionState.toggleDrive(drive.device)}>
             <Flex flexDirection='row'
@@ -130,6 +131,29 @@ class DriveSelectorReact extends React.Component {
                 </Txt>
               </Flex>
               <Tick success={selectionState.isDriveSelected(drive.device)} className="glyphicon glyphicon-ok" />
+            </Flex>
+          </DeviceListElem>
+        </Provider>
+      )
+      :
+      (
+        <Provider key={'empty'}>
+          <DeviceListElem>
+            <Flex flexDirection='column'>
+              <Heading.h6
+                color='#666'
+                align='left'
+              >
+                Connect a drive!
+              </Heading.h6>
+              <Txt
+                color='#b3b3b3'
+                size='11px'
+                align='left'
+                style={{padding: 0}}
+              >
+                No removable drive connected.
+              </Txt>
             </Flex>
           </DeviceListElem>
         </Provider>
