@@ -28,15 +28,19 @@ const { StepButton, StepNameButton, StepSelection,
   DetailsText, ChangeButton } = require('./../../styled-components')
 
 const DetailsModal = require('./../modal-react/details-modal')
-const DriveSelectorReact = require('../modal-react/drive-selector-react')
+const DriveSelectorReact = require('../modal-react/drive-selector/drive-selector-react')
 
-const selectionState = require('./../../models/selection-state')
+const driveSelectorController = require('../modal-react/drive-selector/controller')
+
 const shared = require('/./../../../../../lib/shared/units')
+const constraints = require('./../../../../shared/drive-constraints')
 
 class DriveSelectorButton extends React.PureComponent {
 
   constructor(props) {
     super(props)
+
+    console.log(driveSelectorController.hasDrive(),!this.props.shouldShowDrivesButton)
 
     this.state = {
       showDetailsModal: false,
@@ -45,7 +49,7 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   allDevicesFooter() {
-    return selectionState.getSelectedDrives().map((device) =>
+    return driveSelectorController.getSelectedDrives().map((device) =>
       <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
         { middleEllipsis(device.description, 14) }
       </Txt>
@@ -53,7 +57,7 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   selectedDevicesDetails() {
-    return selectionState.getSelectedDrives().map((device) =>
+    return driveSelectorController.getSelectedDrives().map((device) =>
       ({
         name: device.description || device.displayName,
         size: shared.bytesToClosestUnit(device.size),
@@ -63,29 +67,29 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   render() {
-    if (selectionState.hasDrive() || !this.props.shouldShowDrivesButton) {
+    if (driveSelectorController.hasDrive() || !this.props.shouldShowDrivesButton) {
       return (
         <Provider>
           <StepSelection>
               <StepNameButton
                 plaintext
                 disabled={this.props.disabled}
-                tooltip={this.props.driveListLabel}
-                warning={!selectionState.hasDrive()}
+                tooltip={driveSelectorController.getDriveListLabel()}
+                warning={!driveSelectorController.hasDrive()}
                 onClick={() => this.setState({ showDetailsModal: true})}
               >
-                { middleEllipsis(this.props.drivesTitle, 20) }
-                { this.props.hasCompatibilityStatus(this.props.drives(), this.props.image()) ?
+                { middleEllipsis(driveSelectorController.getDrivesTitle(), 20) }
+                { constraints.hasListDriveImageCompatibilityStatus(driveSelectorController.getSelectedDrives(), this.props.getImage()) ?
                   <Txt.span className='glyphicon glyphicon-alert'
                     ml='10px'
-                    tooltip={this.props.getCompatibilityStatuses(this.props.drives(),this.props.image())[0].message}
+                    tooltip={constraints.getListDriveImageCompatibilityStatuses(driveSelectorController.getSelectedDrives(),this.props.getImage())[0].message}
                   />
                 : null
                 }
               </StepNameButton>
 
             <DetailsText>
-              {this.props.driveSize}
+              {driveSelectorController.getDrivesSubtitle()}
             </DetailsText>
             { this.props.flashing || !this.props.shouldShowDrivesButton ?
               null
@@ -99,7 +103,7 @@ class DriveSelectorButton extends React.PureComponent {
             }
             <DetailsText>
               {
-                selectionState.getSelectedDrives().length > 1 ?
+                driveSelectorController.getSelectedDrives().length > 1 ?
                 ( this.allDevicesFooter() )
                 : null
               }
@@ -146,21 +150,10 @@ class DriveSelectorButton extends React.PureComponent {
 }
 
 DriveSelectorButton.propTypes = {
-  hasDrive: propTypes.bool,
-  shouldShowDrivesButton: propTypes.bool,
   disabled: propTypes.bool,
-  drivesTitle: propTypes.string,
-  driveListLabel: propTypes.string,
   openDriveSelector: propTypes.func,
-  howManyDeviceSelected: propTypes.number,
-  reselectDrive: propTypes.func,
-  driveSize: propTypes.string,
-  hasCompatibilityStatus: propTypes.func,
-  getCompatibilityStatuses: propTypes.func,
-  drives: propTypes.func,
-  image: propTypes.func,
-  selectedDevices: propTypes.array,
-  openDriveSelector: propTypes.func
+  getImage: propTypes.func,
+  flashing: propTypes.func
 }
 
 module.exports = DriveSelectorButton

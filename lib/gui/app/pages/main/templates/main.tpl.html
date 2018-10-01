@@ -50,21 +50,11 @@
       <div class="space-vertical-large">
 
         <drive-selector-button
-          has-drive="main.selection.hasDrive()"
-          should-show-drives-button="drive.shouldShowDrivesButton()"
+          flashing="main.state.isFlashing()"
           disabled="main.shouldDriveStepBeDisabled()"
-          drives-title="drive.getDrivesTitle()"
-          drive-list-label="drive.getDriveListLabel()"
-          open-drive-selector="drive.openDriveSelector"
-          how-many-device-selected="main.selection.getSelectedDevices().length"
-          reselect-drive="drive.reselectDrive"
-          drive-size="drive.getDrivesSubtitle()"
-          has-compatibility-status="main.constraints.hasListDriveImageCompatibilityStatus"
-          get-compatibility-statuses="main.constraints.getListDriveImageCompatibilityStatuses"
-          drives="main.selection.getSelectedDrives"
-          image="main.selection.getImage"
-          selected-devices="drive.getMemoizedSelectedDrives()"
-          >
+          get-image="main.selection.getImage"
+          should-show-drives-button="drive.shouldShowDrivesButton()"
+        >
         </drive-selector-button>
       </div>
     </div>

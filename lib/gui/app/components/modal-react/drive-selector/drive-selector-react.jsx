@@ -21,22 +21,22 @@ const ReactDOM = require('react-dom')
 const propTypes = require('prop-types')
 const Color = require('color')
 
-const middleEllipsis = require('../../utils/middle-ellipsis')
+const middleEllipsis = require('../../../utils/middle-ellipsis')
 
 const { Provider, Modal, Txt, Heading, Box, Flex } = require('rendition')
 const {
   ModalHeader,
   CloseButton,
   ModalBody,
-} = require('./modal-styles')
+} = require('./../modal-styles')
 
 const styled = require('styled-components').default
 
-const availableDrives = require('./../../models/available-drives')
-const selectionState = require('./../../models/selection-state')
+const controller = require('./controller')
 
-const { colors } = require('./../../theme')
-const shared = require('/./../../../../../lib/shared/units')
+
+const { colors } = require('./../../../theme')
+const shared = require('/./../../../../../../lib/shared/units')
 
 const DeviceListElem = styled(Box) `
   font-size: 12px;
@@ -79,13 +79,13 @@ class DriveSelectorReact extends React.Component {
     super(props)
 
     this.state = {
-      availableDrives: availableDrives.getDrives()
+      availableDrives: controller.getAvailableDrives()
     }
   }
 
   componentDidMount () {
     this.timer = setInterval(() => {
-      let checkDrives = availableDrives.getDrives()
+      let checkDrives = controller.getAvailableDrives()
       if (this.state.availableDrives == checkDrives){    //TODO: if doesn't work
       //  console.log('different')//this.setState({ availableDrives: checkDrives })
       }
@@ -100,15 +100,15 @@ class DriveSelectorReact extends React.Component {
   }
 
   onModalCancel = () => {
-    selectionState.deselectAllDrives()
+    controller.deselectAllDrives()
     this.props.callback()
   }
 
   renderDrivesList() {
-    return availableDrives.hasAvailableDrives() ?
-      availableDrives.getDrives().map((drive) =>
+    return controller.hasAvailableDrives() ?
+      controller.getAvailableDrives().map((drive) =>
         <Provider key={drive.device}>
-          <DeviceListElem onClick={() => selectionState.toggleDrive(drive.device)}>
+          <DeviceListElem onClick={() => controller.toggleDrive(drive.device)}>
             <Flex flexDirection='row'
               justify='space-between'
               style={{ alignItems: 'center'}}
@@ -129,7 +129,7 @@ class DriveSelectorReact extends React.Component {
                   {drive.device}
                 </Txt>
               </Flex>
-              <Tick success={selectionState.isDriveSelected(drive.device)} className="glyphicon glyphicon-ok" />
+              <Tick success={controller.isDriveSelected(drive.device)} className="glyphicon glyphicon-ok" />
             </Flex>
           </DeviceListElem>
         </Provider>
@@ -179,7 +179,7 @@ class DriveSelectorReact extends React.Component {
             </React.Fragment>
           }
           primaryButtonProps={{
-            disabled: !selectionState.hasDrive(),
+            disabled: !controller.hasDrive(),
           }}
           action='Continue'
           done={this.props.callback}
