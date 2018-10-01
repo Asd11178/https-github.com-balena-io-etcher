@@ -40,7 +40,7 @@ class DriveSelectorButton extends React.PureComponent {
   constructor(props) {
     super(props)
 
-    console.log(driveSelectorController.hasDrive(),!this.props.shouldShowDrivesButton)
+    console.log(!driveSelectorController.hasDrive(),this.props.shouldShowDrivesButton)
 
     this.state = {
       showDetailsModal: false,
@@ -67,7 +67,28 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   render() {
-    if (driveSelectorController.hasDrive() || !this.props.shouldShowDrivesButton) {
+    if (!driveSelectorController.hasDrive() && this.props.shouldShowDrivesButton) {
+      return (
+        <Provider>
+          <StepSelection>
+            <StepButton
+              primary
+              disabled={this.props.disabled}
+              onClick={() => this.setState({ showDriveSelector: true })}
+            >
+              Select drive react
+            </StepButton>
+            <Txt color="white" onClick={this.props.openDriveSelector}>Show old selector</Txt>
+            {this.state.showDriveSelector ?
+              <DriveSelectorReact
+                callback={() => this.setState({ showDriveSelector: false })} />
+            : null
+            }
+          </StepSelection>
+        </Provider>
+      )
+    }
+    else {
       return (
         <Provider>
           <StepSelection>
@@ -122,27 +143,6 @@ class DriveSelectorButton extends React.PureComponent {
               callback={() => this.setState({ showDriveSelector: false })} />
           : null
           }
-        </Provider>
-      )
-    }
-    else {
-      return (
-        <Provider>
-          <StepSelection>
-            <StepButton
-              primary
-              disabled={this.props.disabled}
-              onClick={() => this.setState({ showDriveSelector: true })}
-            >
-              Select drive react
-            </StepButton>
-            <Txt color="white" onClick={this.props.openDriveSelector}>Show old selector</Txt>
-            {this.state.showDriveSelector ?
-              <DriveSelectorReact
-                callback={() => this.setState({ showDriveSelector: false })} />
-            : null
-            }
-          </StepSelection>
         </Provider>
       )
     }
