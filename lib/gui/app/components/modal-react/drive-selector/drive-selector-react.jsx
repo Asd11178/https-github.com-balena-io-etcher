@@ -104,11 +104,17 @@ class DriveSelectorReact extends React.Component {
     this.props.callback()
   }
 
+  handleClick = (drive) => {
+    console.log('clicked')
+    controller.toggleDrive(drive.device)
+    console.log(controller.isDriveSelected(drive.device))
+  }
+
   renderDrivesList() {
     return controller.hasAvailableDrives() ?
       controller.getAvailableDrives().map((drive) =>
         <Provider key={drive.device}>
-          <DeviceListElem onClick={() => controller.toggleDrive(drive.device)}>
+          <DeviceListElem onClick={() => this.handleClick(drive.device)}>
             <Flex flexDirection='row'
               justify='space-between'
               style={{ alignItems: 'center'}}

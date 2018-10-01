@@ -153,7 +153,8 @@ DriveSelectorButton.propTypes = {
   disabled: propTypes.bool,
   openDriveSelector: propTypes.func,
   getImage: propTypes.func,
-  flashing: propTypes.func
+  flashing: propTypes.func,
+  shouldShowDrivesButton: propTypes.bool
 }
 
 module.exports = DriveSelectorButton
