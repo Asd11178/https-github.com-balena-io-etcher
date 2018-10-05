@@ -49,7 +49,7 @@
 
       <div class="space-vertical-large">
 
-        <drive-selector-button
+        <drive-selector-step
           flashing="main.state.isFlashing()"
           disabled="main.shouldDriveStepBeDisabled()"
           get-image="main.selection.getImage"
@@ -58,7 +58,7 @@
           has-compatibility-status="main.constraints.hasListDriveImageCompatibilityStatus(main.selection.getSelectedDrives,main.selection.getImage)"
           get-compatibility-statuses="main.constraints.getListDriveImageCompatibilityStatuses(main.selection.getSelectedDrives,main.selection.getImage)[0].message"
         >
-        </drive-selector-button>
+      </drive-selector-step>
       </div>
     </div>
   </div>

@@ -32,7 +32,7 @@ const {
 
 const styled = require('styled-components').default
 
-const controller = require('./controller')
+const controller = require('./drive-selector-service')
 
 
 const { colors } = require('./../../theme')
@@ -75,7 +75,7 @@ const Tick = styled(Txt.span) `
 
 `
 
-class DriveSelectorReact extends React.Component {
+class DriveSelector extends React.Component {
 
   constructor(props) {
     super(props)
@@ -167,7 +167,6 @@ class DriveSelectorReact extends React.Component {
     }
 
   render() {
-    console.log('rerendered')
     return(
       <Provider>
         <Modal
@@ -202,8 +201,9 @@ class DriveSelectorReact extends React.Component {
 
 }
 
-DriveSelectorReact.propTypes = {
+DriveSelector.propTypes = {
+  image: propTypes.func,
   callback: propTypes.func
 }
 
-module.exports = DriveSelectorReact
+module.exports = DriveSelector
