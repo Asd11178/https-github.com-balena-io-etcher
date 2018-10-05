@@ -85,7 +85,6 @@ class DriveSelectorStep extends React.PureComponent {
       )
     }
     else {
-      console.log(service.getDriveListLabel())
       return (
         <Provider>
           <StepSelection>
@@ -150,7 +149,8 @@ DriveSelectorStep.propTypes = {
   flashing: propTypes.bool,
   shouldShowDrivesButton: propTypes.bool,
   hasCompatibilityStatus: propTypes.bool,
-  getCompatibilityStatuses: propTypes.array
+  getCompatibilityStatuses: propTypes.array,
+  getImage: propTypes.func
 }
 
 exports.DriveSelectorStep = DriveSelectorStep

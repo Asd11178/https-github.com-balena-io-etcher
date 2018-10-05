@@ -111,6 +111,14 @@ class DriveSelector extends React.Component {
     this.forceUpdate()
   }
 
+  getDriveStatuses = (drive) => {
+    return controller.getDriveStatuses(drive,this.props.image).map((status) =>
+      <Txt color='red'>
+        {status.message}
+      </Txt>
+    )
+  }
+
   renderDrivesList() {
     return controller.hasAvailableDrives() ?
       controller.getAvailableDrives().map((drive) =>
@@ -135,6 +143,7 @@ class DriveSelector extends React.Component {
                 >
                   {drive.device}
                 </Txt>
+                { this.getDriveStatuses(drive) }
               </Flex>
               <Tick success={controller.isDriveSelected(drive.device)} className="glyphicon glyphicon-ok" />
             </Flex>
