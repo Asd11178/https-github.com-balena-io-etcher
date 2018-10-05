@@ -78,7 +78,6 @@ class DriveSelectorButton extends React.PureComponent {
             >
               Select drive react
             </StepButton>
-            <Txt color="white" onClick={this.props.openDriveSelector}>Show old selector</Txt>
             {this.state.showDriveSelector ?
               <DriveSelectorReact
                 callback={() => this.setState({ showDriveSelector: false })} />
@@ -100,12 +99,11 @@ class DriveSelectorButton extends React.PureComponent {
                 onClick={() => this.setState({ showDetailsModal: true})}
               >
                 { middleEllipsis(driveSelectorController.getDrivesTitle(), 20) }
-                { constraints.hasListDriveImageCompatibilityStatus(driveSelectorController.getSelectedDrives(), this.props.getImage()) ?
+                { constraints.hasListDriveImageCompatibilityStatus &&
                   <Txt.span className='glyphicon glyphicon-alert'
                     ml='10px'
-                    tooltip={constraints.getListDriveImageCompatibilityStatuses(driveSelectorController.getSelectedDrives(),this.props.getImage())[0].message}
+                    tooltip={constraints.getListDriveImageCompatibilityStatuses}
                   />
-                : null
                 }
               </StepNameButton>
 
@@ -151,10 +149,8 @@ class DriveSelectorButton extends React.PureComponent {
 
 DriveSelectorButton.propTypes = {
   disabled: propTypes.bool,
-  openDriveSelector: propTypes.func,
-  getImage: propTypes.func,
   flashing: propTypes.func,
   shouldShowDrivesButton: propTypes.bool
 }
 
-module.exports = DriveSelectorButton
+exports.DriveSelectorButton = DriveSelectorButton
