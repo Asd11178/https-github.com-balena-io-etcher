@@ -41,8 +41,15 @@ class DriveSelectorStep extends React.PureComponent {
 
     this.state = {
       showDetailsModal: false,
-      showDriveSelector: false
+      showDriveSelector: false,
+      hasDrive: service.hasDrive()
     }
+  }
+
+  componentDidMount () {    //do not rerender if not needed as in drive selector
+    this.timer = setInterval(() => {
+      this.setState({ hasDrive: service.hasDrive() })
+    })
   }
 
   allDevicesFooter() {
@@ -64,7 +71,7 @@ class DriveSelectorStep extends React.PureComponent {
   }
 
   render() {
-    if (!service.hasDrive() && this.props.shouldShowDrivesButton) {
+    if (!this.state.hasDrive && this.props.shouldShowDrivesButton) {
       return (
         <Provider>
           <StepSelection>
