@@ -92,6 +92,7 @@ class DriveSelectorStep extends React.PureComponent {
       )
     }
     else {
+      console.log(service.getSelectedDrives())
       return (
         <Provider>
           <StepSelection>
