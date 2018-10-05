@@ -37,6 +37,7 @@ const controller = require('./drive-selector-service')
 
 const { colors } = require('./../../theme')
 const shared = require('/./../../../../../lib/shared/units')
+const constraints = require('./../../../../shared/drive-constraints')
 
 const selectionState = require('./../../models/selection-state')
 
@@ -75,6 +76,28 @@ const Tick = styled(Txt.span) `
 
 `
 
+const Label = styled(Txt)`
+  height: 18px;
+  border-radius: 10px;
+
+  'label-warning': status.type === modal.constraints.COMPATIBILITY_STATUS_TYPES.WARNING,
+  'label-danger': status.type === modal.constraints.COMPATIBILITY_STATUS_TYPES.ERROR
+
+  color: ${colors.warning.foreground};
+  background-color:
+    ${(props) =>
+      {
+        if (props.type === constraints.COMPATIBILITY_STATUS_TYPES.WARNING) {
+          return colors.warning.background
+        }
+        if (props.type === constraints.COMPATIBILITY_STATUS_TYPES.ERROR) {
+          return colors.danger.background
+        }
+        else return '#666'
+      }
+    };
+`
+
 class DriveSelector extends React.Component {
 
   constructor(props) {
@@ -111,11 +134,12 @@ class DriveSelector extends React.Component {
     this.forceUpdate()
   }
 
-  getDriveStatuses = (drive) => {
+  addDrivesLabels = (drive) => {
     return controller.getDriveStatuses(drive,this.props.image).map((status) =>
-      <Txt color='red'>
+      <Label type={status.type}>
+        {console.log(status)}
         {status.message}
-      </Txt>
+      </Label>
     )
   }
 
@@ -143,7 +167,7 @@ class DriveSelector extends React.Component {
                 >
                   {drive.device}
                 </Txt>
-                { this.getDriveStatuses(drive) }
+                { this.addDrivesLabels(drive) }
               </Flex>
               <Tick success={controller.isDriveSelected(drive.device)} className="glyphicon glyphicon-ok" />
             </Flex>
