@@ -38,6 +38,8 @@ const controller = require('./controller')
 const { colors } = require('./../../../theme')
 const shared = require('/./../../../../../../lib/shared/units')
 
+const selectionState = require('./../../../models/selection-state')
+
 const DeviceListElem = styled(Box) `
   font-size: 12px;
   padding: 11px 0;
@@ -105,16 +107,15 @@ class DriveSelectorReact extends React.Component {
   }
 
   handleClick = (drive) => {
-    console.log('clicked')
     controller.toggleDrive(drive.device)
-    console.log(controller.isDriveSelected(drive.device))
+    this.forceUpdate()
   }
 
   renderDrivesList() {
     return controller.hasAvailableDrives() ?
       controller.getAvailableDrives().map((drive) =>
         <Provider key={drive.device}>
-          <DeviceListElem onClick={() => this.handleClick(drive.device)}>
+          <DeviceListElem onClick={() => this.handleClick(drive)}>
             <Flex flexDirection='row'
               justify='space-between'
               style={{ alignItems: 'center'}}
@@ -166,6 +167,7 @@ class DriveSelectorReact extends React.Component {
     }
 
   render() {
+    console.log('rerendered')
     return(
       <Provider>
         <Modal

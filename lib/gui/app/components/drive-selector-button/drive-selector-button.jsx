@@ -40,8 +40,6 @@ class DriveSelectorButton extends React.PureComponent {
   constructor(props) {
     super(props)
 
-    console.log(!driveSelectorController.hasDrive(),this.props.shouldShowDrivesButton)
-
     this.state = {
       showDetailsModal: false,
       showDriveSelector: false
@@ -49,9 +47,9 @@ class DriveSelectorButton extends React.PureComponent {
   }
 
   allDevicesFooter() {
-    return driveSelectorController.getSelectedDrives().map((device) =>
-      <Txt key={device.device} tooltip={device.description + '(' + device.displayName + ')'}>
-        { middleEllipsis(device.description, 14) }
+    return driveSelectorController.getSelectedDrives().map((drive) =>
+      <Txt key={drive.device} tooltip={drive.description + '(' + drive.displayName + ')'}>
+        { middleEllipsis(drive.description, 14) }
       </Txt>
     )
   }
@@ -76,18 +74,19 @@ class DriveSelectorButton extends React.PureComponent {
               disabled={this.props.disabled}
               onClick={() => this.setState({ showDriveSelector: true })}
             >
-              Select drive react
+              Select drive
             </StepButton>
-            {this.state.showDriveSelector ?
+            {this.state.showDriveSelector &&
               <DriveSelectorReact
-                callback={() => this.setState({ showDriveSelector: false })} />
-            : null
+                callback={() => this.setState({ showDriveSelector: false })}
+              />
             }
           </StepSelection>
         </Provider>
       )
     }
     else {
+      console.log(driveSelectorController.getDriveListLabel())
       return (
         <Provider>
           <StepSelection>
@@ -149,8 +148,10 @@ class DriveSelectorButton extends React.PureComponent {
 
 DriveSelectorButton.propTypes = {
   disabled: propTypes.bool,
-  flashing: propTypes.func,
-  shouldShowDrivesButton: propTypes.bool
+  flashing: propTypes.bool,
+  shouldShowDrivesButton: propTypes.bool,
+  hasCompatibilityStatus: propTypes.bool,
+  getCompatibilityStatuses: propTypes.array
 }
 
 exports.DriveSelectorButton = DriveSelectorButton
