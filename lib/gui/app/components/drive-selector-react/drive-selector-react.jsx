@@ -21,7 +21,7 @@ const ReactDOM = require('react-dom')
 const propTypes = require('prop-types')
 const Color = require('color')
 
-const middleEllipsis = require('../../../utils/middle-ellipsis')
+const middleEllipsis = require('../../utils/middle-ellipsis')
 
 const { Provider, Modal, Txt, Heading, Box, Flex } = require('rendition')
 const {
@@ -35,10 +35,10 @@ const styled = require('styled-components').default
 const controller = require('./controller')
 
 
-const { colors } = require('./../../../theme')
-const shared = require('/./../../../../../../lib/shared/units')
+const { colors } = require('./../../theme')
+const shared = require('/./../../../../../lib/shared/units')
 
-const selectionState = require('./../../../models/selection-state')
+const selectionState = require('./../../models/selection-state')
 
 const DeviceListElem = styled(Box) `
   font-size: 12px;

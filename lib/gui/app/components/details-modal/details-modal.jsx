@@ -21,7 +21,7 @@ const ReactDOM = require('react-dom')
 const propTypes = require('prop-types')
 const { Provider, Modal, Txt, Box } = require('rendition')
 
-const { ModalHeader, CloseButton, ModalBody} = require('./modal-styles')
+const { ModalHeader, CloseButton, ModalBody} = require('./../modal-styles')
 const { colors } = require('./../../theme')
 
 class DetailsModal extends React.Component {

@@ -25,12 +25,12 @@ const middleEllipsis = require('./../../utils/middle-ellipsis')
 
 const { Provider, Txt } = require('rendition')
 const { StepButton, StepNameButton, StepSelection,
-  DetailsText, ChangeButton } = require('./../../styled-components')
+  DetailsText, ChangeButton } = require('./../styled-components')
 
-const DetailsModal = require('./../modal-react/details-modal')
-const DriveSelectorReact = require('../modal-react/drive-selector/drive-selector-react')
+const DetailsModal = require('./../details-modal/details-modal')
+const DriveSelectorReact = require('./../drive-selector-react/drive-selector-react')
 
-const driveSelectorController = require('../modal-react/drive-selector/controller')
+const driveSelectorController = require('./../drive-selector-react/controller')
 
 const shared = require('/./../../../../../lib/shared/units')
 const constraints = require('./../../../../shared/drive-constraints')
