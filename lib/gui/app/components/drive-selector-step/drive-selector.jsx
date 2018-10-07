@@ -104,9 +104,10 @@ class DriveSelector extends React.PureComponent {
   constructor(props) {
     super(props)
 
+    console.log('constructor',this.props.currentSelectedDevices)
+
     this.state = {
       availableDrives: controller.getAvailableDrives(),
-      currentSelectedDevices: controller.getSelectedDevices()
     }
   }
 
@@ -122,15 +123,15 @@ class DriveSelector extends React.PureComponent {
     clearInterval(this.timer)
   }
 
-  onModalCancel = () => {
-    controller.deselectAllDrives()
-    controller.selectDevices(this.state.currentSelectedDevices)
-    this.props.callback()
-  }
-
   handleClick = (drive) => {
-    controller.toggleDrive(drive.device)
+    if (this.props.currentSelectedDevices.includes(drive.device)) {
+      this.props.currentSelectedDevices.splice(this.props.currentSelectedDevices.indexOf(drive.device),1)
+    }
+    else {
+      this.props.currentSelectedDevices.push(drive.device)
+    }
     this.forceUpdate()
+    console.log(this.props.currentSelectedDevices)
   }
 
   addDrivesLabels = (drive) => {
@@ -168,7 +169,7 @@ class DriveSelector extends React.PureComponent {
                 </Txt>
                 { this.addDrivesLabels(drive) }
               </Flex>
-              <Tick success={controller.isDriveSelected(drive.device)} className="glyphicon glyphicon-ok" />
+              <Tick success={this.props.currentSelectedDevices.includes(drive.device)} className="glyphicon glyphicon-ok" />
             </Flex>
           </DeviceListElem>
         </Provider>
@@ -212,11 +213,11 @@ class DriveSelector extends React.PureComponent {
             </React.Fragment>
           }
           primaryButtonProps={{
-            disabled: !controller.hasDrive(),
+            disabled: this.props.currentSelectedDevices.length == 0
           }}
           action='Continue'
-          done={this.props.callback}
-          cancel={this.onModalCancel}
+          done={() => this.props.callback('DONE', this.props.currentSelectedDevices)}
+          cancel={() => this.props.callback('CANCEL')}
         >
           <DeviceList>
             {this.renderDrivesList()}
@@ -230,7 +231,8 @@ class DriveSelector extends React.PureComponent {
 
 DriveSelector.propTypes = {
   image: propTypes.func,
-  callback: propTypes.func
+  callback: propTypes.func,
+  currentSelectedDevices: propTypes.array
 }
 
 module.exports = DriveSelector

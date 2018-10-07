@@ -39,10 +39,13 @@ class DriveSelectorStep extends React.PureComponent {
   constructor(props) {
     super(props)
 
+    console.log('constructor')
+
     this.state = {
       showDetailsModal: false,
       showDriveSelector: false,
-      hasDrive: service.hasDrive()
+      hasDrive: service.hasDrive(),
+      selectedDevices: service.getSelectedDevices()
     }
   }
 
@@ -70,6 +73,19 @@ class DriveSelectorStep extends React.PureComponent {
     )
   }
 
+  onDriveSelectorClose = (action, selectedDevices) => {
+    console.log('onDriveSelectorClose',selectedDevices)
+    if (action == 'CANCEL') {
+      this.setState({showDriveSelector: false})
+    }
+    else if (action == 'DONE') {
+      service.deselectAllDrives()
+      console.log('after deselectDrive:',service.getSelectedDevices())
+      this.setState({showDriveSelector: false, selectedDevices: service.selectDevices(selectedDevices)})
+    }
+    console.log('new state:',service.getSelectedDevices())
+  }
+
   render() {
     if (!this.state.hasDrive && this.props.shouldShowDrivesButton) {
       return (
@@ -84,7 +100,9 @@ class DriveSelectorStep extends React.PureComponent {
             </StepButton>
             {this.state.showDriveSelector &&
               <DriveSelector
-                callback={() => this.setState({ showDriveSelector: false })}
+                callback={this.onDriveSelectorClose}
+                image = {this.props.getImage}
+                currentSelectedDevices={service.getSelectedDevices()}
               />
             }
           </StepSelection>
@@ -92,6 +110,7 @@ class DriveSelectorStep extends React.PureComponent {
       )
     }
     else {
+      console.log('in render',service.getSelectedDevices())
       return (
         <Provider>
           <StepSelection>
@@ -143,8 +162,9 @@ class DriveSelectorStep extends React.PureComponent {
           }
           {this.state.showDriveSelector &&
             <DriveSelector
-              callback={() => this.setState({ showDriveSelector: false })}
+              callback={this.onDriveSelectorClose}
               image = {this.props.getImage}
+              currentSelectedDevices={service.getSelectedDevices()}
             />
           }
         </Provider>
