@@ -19,6 +19,7 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
 const propTypes = require('prop-types')
+const _ = require('lodash')
 const Color = require('color')
 
 const middleEllipsis = require('../../utils/middle-ellipsis')
@@ -98,26 +99,23 @@ const Label = styled(Txt)`
     };
 `
 
-class DriveSelector extends React.Component {
+class DriveSelector extends React.PureComponent {
 
   constructor(props) {
     super(props)
 
     this.state = {
-      availableDrives: controller.getAvailableDrives()
+      availableDrives: controller.getAvailableDrives(),
+      currentSelectedDevices: controller.getSelectedDevices()
     }
   }
 
-  componentDidMount () {
+  componentDidMount () {    //TODO: do not rerender if not needed as in drive selector
     this.timer = setInterval(() => {
-      let checkDrives = controller.getAvailableDrives()
-      if (this.state.availableDrives == checkDrives){    //TODO: if doesn't work
-      //  console.log('different')//this.setState({ availableDrives: checkDrives })
+      if (!_.isEqual(this.state.availableDrives, controller.getAvailableDrives())) {
+        this.setState({ availableDrives: controller.getAvailableDrives() })
       }
-      else {
-      //  console.log('same')
-      }
-    }, 500);
+    },500)
   }
 
   componentWillUnmount () {
@@ -126,6 +124,7 @@ class DriveSelector extends React.Component {
 
   onModalCancel = () => {
     controller.deselectAllDrives()
+    controller.selectDevices(this.state.currentSelectedDevices)
     this.props.callback()
   }
 
@@ -209,12 +208,6 @@ class DriveSelector extends React.Component {
             <React.Fragment>
               <ModalHeader>
                 <Txt>SELECT DRIVERS</Txt>
-                <CloseButton
-                  plaintext
-                  onClick={this.onModalCancel}
-                >
-                &times;
-                </CloseButton>
               </ModalHeader>
             </React.Fragment>
           }
@@ -223,6 +216,7 @@ class DriveSelector extends React.Component {
           }}
           action='Continue'
           done={this.props.callback}
+          cancel={this.onModalCancel}
         >
           <DeviceList>
             {this.renderDrivesList()}

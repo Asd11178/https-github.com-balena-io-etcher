@@ -46,7 +46,7 @@ class DriveSelectorStep extends React.PureComponent {
     }
   }
 
-  componentDidMount () {    //do not rerender if not needed as in drive selector
+  componentDidMount () {    //TODO: do not rerender if not needed as in drive selector
     this.timer = setInterval(() => {
       this.setState({ hasDrive: service.hasDrive() })
     })
@@ -92,7 +92,6 @@ class DriveSelectorStep extends React.PureComponent {
       )
     }
     else {
-      console.log(service.getSelectedDrives())
       return (
         <Provider>
           <StepSelection>
@@ -107,6 +106,7 @@ class DriveSelectorStep extends React.PureComponent {
                 { constraints.hasListDriveImageCompatibilityStatus &&
                   <Txt.span className='glyphicon glyphicon-alert'
                     ml='10px'
+                    mb='5px'
                     tooltip={constraints.getListDriveImageCompatibilityStatuses}
                   />
                 }
@@ -122,6 +122,7 @@ class DriveSelectorStep extends React.PureComponent {
               <ChangeButton
                 plaintext
                 onClick={() => this.setState({ showDriveSelector: true })}
+                disabled={this.props.disabled}
               >
                 Change
               </ChangeButton>
