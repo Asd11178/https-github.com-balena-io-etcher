@@ -104,8 +104,6 @@ class DriveSelector extends React.PureComponent {
   constructor(props) {
     super(props)
 
-    console.log('constructor',this.props.currentSelectedDevices)
-
     this.state = {
       availableDrives: controller.getAvailableDrives(),
     }
@@ -124,20 +122,22 @@ class DriveSelector extends React.PureComponent {
   }
 
   handleClick = (drive) => {
-    if (this.props.currentSelectedDevices.includes(drive.device)) {
-      this.props.currentSelectedDevices.splice(this.props.currentSelectedDevices.indexOf(drive.device),1)
+    if (constraints.isDriveValid(drive, this.props.image)) {
+      if (this.props.currentSelectedDevices.includes(drive.device)) {
+        this.props.currentSelectedDevices.splice(this.props.currentSelectedDevices.indexOf(drive.device),1)
+      }
+      else {
+        this.props.currentSelectedDevices.push(drive.device)
+      }
+      this.forceUpdate()
+      console.log(this.props.currentSelectedDevices)
     }
-    else {
-      this.props.currentSelectedDevices.push(drive.device)
-    }
-    this.forceUpdate()
-    console.log(this.props.currentSelectedDevices)
   }
 
   addDrivesLabels = (drive) => {
-    return controller.getDriveStatuses(drive,this.props.image).map((status) =>
-      <Label type={status.type}>
-        {console.log(status)}
+    console.log('labels: ',drive, controller.getDriveStatuses(drive,this.props.image))
+    return controller.getDriveStatuses(drive,this.props.image).map((status, index) =>
+      <Label type={status.type} key={index} >
         {status.message}
       </Label>
     )
@@ -147,7 +147,9 @@ class DriveSelector extends React.PureComponent {
     return controller.hasAvailableDrives() ?
       controller.getAvailableDrives().map((drive) =>
         <Provider key={drive.device}>
-          <DeviceListElem onClick={() => this.handleClick(drive)}>
+          <DeviceListElem
+            onClick={() => this.handleClick(drive)}
+          >
             <Flex flexDirection='row'
               justify='space-between'
               style={{ alignItems: 'center'}}
@@ -230,7 +232,7 @@ class DriveSelector extends React.PureComponent {
 }
 
 DriveSelector.propTypes = {
-  image: propTypes.func,
+  image: propTypes.object,
   callback: propTypes.func,
   currentSelectedDevices: propTypes.array
 }

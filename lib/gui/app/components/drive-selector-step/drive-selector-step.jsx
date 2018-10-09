@@ -39,7 +39,7 @@ class DriveSelectorStep extends React.PureComponent {
   constructor(props) {
     super(props)
 
-    console.log('constructor')
+    console.log('constructor',this.props.image())
 
     this.state = {
       showDetailsModal: false,
@@ -101,7 +101,7 @@ class DriveSelectorStep extends React.PureComponent {
             {this.state.showDriveSelector &&
               <DriveSelector
                 callback={this.onDriveSelectorClose}
-                image = {this.props.getImage}
+                image = {this.props.image()}
                 currentSelectedDevices={service.getSelectedDevices()}
               />
             }
@@ -163,7 +163,7 @@ class DriveSelectorStep extends React.PureComponent {
           {this.state.showDriveSelector &&
             <DriveSelector
               callback={this.onDriveSelectorClose}
-              image = {this.props.getImage}
+              image = {this.props.image()}
               currentSelectedDevices={service.getSelectedDevices()}
             />
           }
@@ -179,7 +179,7 @@ DriveSelectorStep.propTypes = {
   shouldShowDrivesButton: propTypes.bool,
   hasCompatibilityStatus: propTypes.bool,
   getCompatibilityStatuses: propTypes.array,
-  getImage: propTypes.func
+  image: propTypes.object
 }
 
 exports.DriveSelectorStep = DriveSelectorStep
