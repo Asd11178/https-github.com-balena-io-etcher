@@ -62,7 +62,8 @@ const Tick = styled(Txt.span) `
 
   border-color: ${(props) => { return props.success ?
     colors.success.foreground :
-    props.error ? colors.danger.foreground : colors.light.soft.foreground}
+    props.error ? colors.danger.foreground :
+    props.disabled ? '#b3b3b3' : colors.light.foreground}
   }
 
   background-color: ${(props) => { return props.success ?
@@ -72,7 +73,8 @@ const Tick = styled(Txt.span) `
 
   color: ${(props) => { return props.success ?
     colors.success.foreground :
-    props.error ? colors.danger.foreground : colors.light.soft.foreground}
+    props.error ? colors.danger.foreground :
+    props.disabled ? '#b3b3b3' : colors.light.foreground}
   }
 
 `
@@ -156,7 +158,7 @@ class DriveSelector extends React.PureComponent {
             >
               <Flex flexDirection='column'>
                 <Heading.h6
-                  color='#666'
+                  color={constraints.isDriveValid(drive, this.props.image) ? '#666' : '#b3b3b3'}
                   align='left'
                 >
                   {drive.description}{' '}-{' '}{shared.bytesToClosestUnit(drive.size)}
@@ -171,7 +173,11 @@ class DriveSelector extends React.PureComponent {
                 </Txt>
                 { this.addDrivesLabels(drive) }
               </Flex>
-              <Tick success={this.props.currentSelectedDevices.includes(drive.device)} className="glyphicon glyphicon-ok" />
+              <Tick
+                disabled={!constraints.isDriveValid(drive, this.props.image)}
+                success={this.props.currentSelectedDevices.includes(drive.device)}
+                className="glyphicon glyphicon-ok"
+              />
             </Flex>
           </DeviceListElem>
         </Provider>
