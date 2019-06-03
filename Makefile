@@ -156,9 +156,6 @@ lint-js:
 lint-sass:
 	sass-lint lib/gui/scss
 
-lint-cpp:
-	cpplint --recursive src
-
 lint-html:
 	node scripts/html-lint.js
 
@@ -169,7 +166,7 @@ lint-spell:
 		--skip *.svg *.gz,*.bz2,*.xz,*.zip,*.img,*.dmg,*.iso,*.rpi-sdcard,*.wic,.DS_Store,*.dtb,*.dtbo,*.dat,*.elf,*.bin,*.foo,xz-without-extension \
 		lib tests docs scripts Makefile *.md LICENSE
 
-lint: lint-js lint-sass lint-cpp lint-html lint-spell
+lint: lint-js lint-sass lint-html lint-spell
 
 MOCHA_OPTIONS=--recursive --reporter spec
 
@@ -205,7 +202,6 @@ clean:
 
 distclean: clean
 	rm -rf node_modules
-	rm -rf build
 	rm -rf dist
 	rm -rf generated
 	rm -rf $(BUILD_TEMPORARY_DIRECTORY)
