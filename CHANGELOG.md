@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.46
+## (2019-06-06)
+
+* etcher-pro: Automount source drive partitions automatically [Alexis Svinartchouk]
+* Allow typescript files [Alexis Svinartchouk]
+
 # v1.5.45
 ## (2019-06-04)
 
