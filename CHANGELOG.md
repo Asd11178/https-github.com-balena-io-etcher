@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.47
+## (2019-06-10)
+
+* Add env configs & balena lockfile management [Lorenzo Alberto Maria Ambrosi]
+
 # v1.5.46
 ## (2019-06-09)
 
