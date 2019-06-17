@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+# v1.5.51
+## (2019-06-17)
+
+* Move shared folder to gui/app/modules [Lorenzo Alberto Maria Ambrosi]
+* Allow typescript files [Alexis Svinartchouk]
+
 # v1.5.50
 ## (2019-06-13)
 
