@@ -40,6 +40,7 @@
   ],
   "dependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
+    "@types/pigpio": "^1.2.1",
     "angular": "1.7.6",
     "angular-if-state": "^1.0.0",
     "angular-moment": "^1.0.1",
@@ -63,6 +64,7 @@
     "nan": "^2.9.2",
     "node-ipc": "^9.1.1",
     "path-is-inside": "^1.0.2",
+    "pigpio": "1.2.3",
     "pretty-bytes": "^1.0.4",
     "prop-types": "^15.5.9",
     "react": "^16.8.5",

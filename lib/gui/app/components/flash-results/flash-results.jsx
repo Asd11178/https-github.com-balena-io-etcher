@@ -33,6 +33,7 @@ const Div = styled.div `
 /* eslint-disable no-inline-comments */
 
 const FlashResults = (props) => {
+  const resultTypes = [ 'failed', 'successful' ]
   return (
     <Div position='absolute' left='153px' top='66px'>
       <div className="inline-flex title">
@@ -42,8 +43,9 @@ const FlashResults = (props) => {
       <Div className="results" mt='11px' mr='0' mb='0' ml='40px'>
         <Underline
           tooltip={props.errors()}>
-          {_.map(props.results.devices, (quantity, type) => {
-            return (quantity) ? (
+          {_.map(resultTypes, (type) => {
+            const quantity = props.results[type]
+            return (quantity > 0) ? (
               <div key={type} className={`target-status-line target-status-${type}`}>
                 <span className="target-status-dot"></span>
                 <span className="target-status-quantity">{ quantity }</span>
