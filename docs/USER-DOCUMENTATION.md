@@ -3,6 +3,23 @@ Etcher User Documentation
 
 This document contains how-tos and FAQs oriented to Etcher users.
 
+I see an error, what should I do?
+-----------------------------
+
+Should you run into an issue and don't know what to do, the best thing you can do is
+gather as much information as possible on the issue in order to let us know better
+what the issue is and how we can help you.
+For that purpose, we generally suggest opening the DevTools Console, which you can do
+by pressing a combination of keys that differs for each OS:
+
+1. `cmd + shift + i` on OSX
+1. `ctrl + shift + i` on Windows and Linux
+
+Copy the content of the new window that opens, paste it into a file if it's long,
+and send it to us by opening an issue (or looking for an already existing one
+with the same error) in the Etcher repository https://github.com/balena-io/etcher/issues
+also filling in all the information of the template.
+
 Why is my drive not bootable?
 -----------------------------
 
